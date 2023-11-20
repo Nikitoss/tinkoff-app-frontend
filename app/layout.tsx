@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={inter.className}>
         <NavBar />
-        <main className="relative ml-28">
+        <main className="relative ml-24">
           {children}
         </main>
       </body>
