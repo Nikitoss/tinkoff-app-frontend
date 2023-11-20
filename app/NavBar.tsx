@@ -5,20 +5,13 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 const NavBar = () => {
-    const links = [
-        { label: <LogoutIcon sx={{ fontSize: 44 }} />, href: '/logout' },
-        { label: <SettingsIcon sx={{ fontSize: 44 }} />, href: '/settings' },
-    ]
-
     return (
-        <div className="fixed w-20 ml-3 flex h-screen justify-center bg-yellow-300">
-            <Link className="top-3 space-y-96" href="/profile"><AccountCircleIcon sx={{ fontSize: 52 }} /></Link>
-            <ul className="">
-                {links.map(link =>
-                    <Link
-                        key={link.href}
-                        href={link.href}>{link.label}</Link>)}
-            </ul>
+        <div className="fixed w-20 ml-3 h-screen bg-yellow-300">
+            <Link className="relative pt-4 flex justify-center ease-out duration-300 hover:scale-125" href="/profile"><AccountCircleIcon sx={{ fontSize: 64 }} /></Link>
+            <ul className="absolute bottom-4 px-4">
+                <Link className="flex justify-center ease-out duration-300 hover:scale-125" href="/logout"><LogoutIcon sx={{ fontSize: 54 }} /></Link>
+                <Link className="flex justify-center ease-out duration-300 hover:scale-125" href="/settings"><SettingsIcon sx={{ fontSize: 54 }} /></Link>
+            </ul>                 
         </div>
     )
 }
