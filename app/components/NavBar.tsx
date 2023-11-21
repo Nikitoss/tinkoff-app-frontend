@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SettingsIcon from '@mui/icons-material/Settings'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 const NavBar = () => {
     return (

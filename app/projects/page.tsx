@@ -1,5 +1,5 @@
-import AddIcon from '@mui/icons-material/Add';
-import Link from 'next/link';
+import AddIcon from '@mui/icons-material/Add'
+import Link from 'next/link'
 
 export default function Page() {
     const column = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:bg-gray-200";
