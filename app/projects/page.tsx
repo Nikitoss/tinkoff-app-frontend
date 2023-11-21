@@ -10,9 +10,6 @@ export default function Page() {
                         <AddIcon sx={{ fontSize: 76 }} className="text-white" />
                     </div>
                 </Link>
-                <div className="w-full aspect-video bg-gray-300 rounded-lg flex justify-center items-center ease-out duration-300 hover:bg-gray-200"></div>
-                <div className="w-full aspect-video bg-gray-300 rounded-lg flex justify-center items-center ease-out duration-300 hover:bg-gray-200"></div>
-                <div className="w-full aspect-video bg-gray-300 rounded-lg flex justify-center items-center ease-out duration-300 hover:bg-gray-200"></div>
             </div>   
         </main>
     )
