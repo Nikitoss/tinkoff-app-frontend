@@ -1,5 +1,5 @@
-import AddIcon from '@mui/icons-material/Add';
-import Link from 'next/link';
+import AddIcon from '@mui/icons-material/Add'
+import Link from 'next/link'
 
 export default function Page() {
     return (
