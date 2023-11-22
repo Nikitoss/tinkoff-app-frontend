@@ -14,9 +14,6 @@ export default function Page() {
                         <AddIcon sx={{ fontSize: 76 }} className="text-white" />
                     </div>
                 </Link>
-                <div className={grayColumn}/>
-                <div className={grayColumn}/>
-                <div className={grayColumn}/>
             </div>   
         </main>
     )
