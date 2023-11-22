@@ -3,7 +3,7 @@
 export default function Page() {
     return (
         <main>
-            <div>Страница с настройками</div>
+            <div>Страница создания таски</div>
         </main>
     )
 }
