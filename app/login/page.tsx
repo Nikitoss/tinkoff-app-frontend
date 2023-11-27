@@ -1,111 +1,37 @@
-// import * as React from 'react';
-// import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
-// import CssBaseline from '@mui/material/CssBaseline';
-// import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
-// import Grid from '@mui/material/Grid';
-// import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import Typography from '@mui/material/Typography';
-// import Container from '@mui/material/Container';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Link from 'next/link'
 
-// function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
-// // TODO remove, this demo shouldn't need to reset the theme.
-// const defaultTheme = createTheme();
-
-// export default function SignIn() {
-//   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
-
-//   return (
-//     <ThemeProvider theme={defaultTheme}>
-//       <Container component="main" maxWidth="xs">
-//         <CssBaseline />
-//         <Box
-//           sx={{
-//             marginTop: 8,
-//             display: 'flex',
-//             flexDirection: 'column',
-//             alignItems: 'center',
-//           }}
-//         >
-//           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-//             <LockOutlinedIcon />
-//           </Avatar>
-//           <Typography component="h1" variant="h5">
-//             Sign in
-//           </Typography>
-//           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-//             <TextField
-//               margin="normal"
-//               required
-//               fullWidth
-//               id="email"
-//               label="Email Address"
-//               name="email"
-//               autoComplete="email"
-//               autoFocus
-//             />
-//             <TextField
-//               margin="normal"
-//               required
-//               fullWidth
-//               name="password"
-//               label="Password"
-//               type="password"
-//               id="password"
-//               autoComplete="current-password"
-//             />
-//             <FormControlLabel
-//               control={<Checkbox value="remember" color="primary" />}
-//               label="Remember me"
-//             />
-//             <Button
-//               type="submit"
-//               fullWidth
-//               variant="contained"
-//               sx={{ mt: 3, mb: 2 }}
-//             >
-//               Sign In
-//             </Button>
-//             <Grid container>
-//               <Grid item xs>
-//                 <Link href="#" variant="body2">
-//                   Forgot password?
-//                 </Link>
-//               </Grid>
-//               <Grid item>
-//                 <Link href="#" variant="body2">
-//                   {"Don't have an account? Sign Up"}
-//                 </Link>
-//               </Grid>
-//             </Grid>
-//           </Box>
-//         </Box>
-//         <Copyright sx={{ mt: 8, mb: 4 }} />
-//       </Container>
-//     </ThemeProvider>
-//   );
-// }
+export default function Page() {
+    return (
+        <main>
+            <img className="md:fixed absolute h-[54rem] -mt-40 pl-[50rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
+            <div className="pt-4 mr-5 grid grid-cols-4 gap-5 relative">
+                <div className="col-start-2 col-span-2 w-full mt-36 px-10 py-4 rounded-lg bg-zinc-200 space-y-2 inset-x-0">
+                    <span className="font-bold text-2xl flex justify-center">Вход в систему</span>
+                    <div className="flex justify-center mt-4">
+                        <button className="w-full h-12 px-10 py-2 border flex justify-center gap-2 rounded-lg border-black hover:border-slate-400 hover:text-slate-400 hover:shadow transition duration-300">
+                            <ul className="flex items-center justify-center space-x-1.5">
+                                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
+                                <span>Войти с помощью Google</span>
+                            </ul>        
+                        </button>
+                    </div>
+                    {/* <div className="flex justify-center">
+                        <button className="w-full h-12 px-10 py-2 border flex justify-center gap-2 rounded-lg border-black hover:border-slate-400 hover:text-slate-400 hover:shadow transition duration-300">
+                            <ul className="flex items-center justify-center space-x-1.5">
+                                <img className="w-6 h-6" src="https://www.svgrepo.com/show/512317/github-142.svg" loading="lazy" alt="google logo" />
+                                <span>Войти с помощью Google</span>
+                            </ul>        
+                        </button>
+                    </div>              */}
+                    <div className="py-4 items-baseline text-neutral-600 text-center">
+                        <p className="text-xs">Приступая к работе, вы соглашаетесь с нашими&nbsp; 
+                            <a href="/privacy-policy/" className="underline">Условиями использования</a>
+                            и подтверждаете, что ознакомились с нашим&nbsp;
+                            <a href="/privacy-policy/" className="underline">Положением о конфиденциальности и файлах cookie</a>.
+                        </p>
+                    </div> 
+                </div>   
+            </div>    
+        </main>
+    )
+}
