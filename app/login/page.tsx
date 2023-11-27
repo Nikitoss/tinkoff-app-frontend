@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Page() {
     return (
         <main>
-            <img className="md:fixed absolute h-[54rem] -mt-40 pl-[50rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
+            <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
             <div className="pt-4 mr-5 grid grid-cols-4 gap-5 relative">
                 <div className="col-start-2 col-span-2 w-full mt-36 px-10 py-4 rounded-lg bg-zinc-200 space-y-2 inset-x-0">
                     <span className="font-bold text-2xl flex justify-center">Вход в систему</span>
