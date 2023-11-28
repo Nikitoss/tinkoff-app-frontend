@@ -1,10 +1,17 @@
-import Link from 'next/link';
-import AddIcon from '@mui/icons-material/Add';
+'use client'
+
+import Link from 'next/link'
+import AddIcon from '@mui/icons-material/Add'
+import { usePathname  } from 'next/navigation'
 
 export default function Page() {
     return (
         <main>
-            <div className="pt-4 mr-5 grid grid-cols-4 gap-5">
+            <div className="py-4">
+                <Link href="/projects">Проекты</Link>
+                /
+            </div>
+            <div className="mr-5 grid grid-cols-4 gap-5">
                 <div>
                     <div className="w-full h-16 bg-gray-200 rounded-tl-lg rounded-tr-lg flex justify-center items-center">
                         <h1 className="font-bold">НОВЫЕ</h1>
