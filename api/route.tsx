@@ -1,10 +1,10 @@
-// export async function getProjectById(projectId: string): Promise<MyHandsomeProject>{
-//     try {
-//         return await fetch(`/api/projects/${projectId}`);
-//     } catch(error) {
-//         console.error(error)
-//     }
-// }
+export async function getProjectById(projectId: string): Promise<MyHandsomeProject> {
+    try {
+        return await fetch(`/api/projects/${projectId}`);
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 // export async function getProjects(): Promise<MyHandsomeProject>{
 //     try {

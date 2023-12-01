@@ -2,9 +2,9 @@ import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
 
 export default function Page() {
-    const column = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow hover:bg-gray-200";
-    const grayColumn = `${column} bg-gray-300`;
-    const yellowColumn = `${column} bg-yellow-300`;
+    const column = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow hover:bg-gray-200"
+    const grayColumn = `${column} bg-gray-300`
+    const yellowColumn = `${column} bg-yellow-300`
     
     return (
         <main>
