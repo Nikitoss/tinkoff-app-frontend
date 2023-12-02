@@ -1,8 +1,8 @@
 'use client'
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import ThumbDownIcon from '@mui/icons-material/ThumbDown'
 
 export default function Page() {
     return (

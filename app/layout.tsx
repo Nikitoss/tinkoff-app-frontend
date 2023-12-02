@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import React from 'react'
+
 import './globals.css'
 
-// TODO Тут не нужно вытаскивать из шрифта латинницу,
-// так как ожидается, что бОльшая часть контента будет на русском языке 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin', 'cyrillic-ext'] })
 
 export const metadata: Metadata = {
     title: 'Retro doard',
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 export default function RootLayout({
     children,
 }: {
-    
     children: React.ReactNode
 }) {
     return (
