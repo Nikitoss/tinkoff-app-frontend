@@ -1,6 +1,7 @@
 'use client'
 
-import NavBar from "./_components/NavBar";
+import NavBar from "./_components/NavBar"
+import React from "react"
 
 export default function RootLayout({
     children
@@ -14,5 +15,5 @@ export default function RootLayout({
                 {children}
             </main>
         </>
-    );
+    )
 }

@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint --fix",
-        "lint-nofix": "eslint"
+        "lint-nofix": "eslint",
+        "codegen": "npx swagger-typescript-api -p http://213.171.9.177:8000/v3/api-docs --modular --disableStrictSSL --disableProxy -o ./api"
     },
     "dependencies": {
         "@emotion/cache": "^11.11.0",
@@ -31,6 +32,7 @@
         "eslint": "^8",
         "eslint-config-next": "14.0.2",
         "postcss": "^8",
+        "swagger-typescript-api": "^13.0.3",
         "tailwindcss": "^3.3.0",
         "typescript": "^5"
     }

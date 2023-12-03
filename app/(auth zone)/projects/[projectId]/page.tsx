@@ -52,8 +52,8 @@ async function getData() {
     const res = await fetch('http://213.171.9.177:8000/api/v1/projects/1')
    
     if (!res.ok) {
-      throw new Error('Failed to fetch data')
+        throw new Error('Failed to fetch data')
     }
    
     return res.json()
-  }
+}

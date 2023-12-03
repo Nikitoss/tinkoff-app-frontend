@@ -1,30 +1,57 @@
+import { getAllProjects } from '@/api/Api'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
+import React, { Suspense } from 'react'
 
-export default function Page() {
-    const column = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow hover:bg-gray-200";
-    const grayColumn = `${column} bg-gray-300`;
-    const yellowColumn = `${column} bg-yellow-300`;
-    
+const card = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow"
+const grayCard = `${card} bg-gray-300 hover:bg-gray-400`
+const yellowCard = `${card} bg-yellow-300 hover:bg-yellow-400`
+const skeletonCard = `${card} bg-gray-300 animate-pulse`
+
+const AddProjectCard = () => (
+    <Link className="w-full" href="/projects/create">
+        <div className={yellowCard}>
+            <AddIcon sx={{ fontSize: 76 }} className="text-white" />
+        </div>
+    </Link>
+)
+
+const ProjectCard = ({ title, id }: { title: string, id: number }) => (
+    <Link className="w-full" key={id} href={`/projects/${id}`}>
+        <div className={grayCard}>
+            {title}
+        </div>
+    </Link>
+)
+
+const SkeletonProjects = ({ count = 3 }) => {
+    const ids = Array.from(Array(count).keys())
+
+    return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
+}
+
+const Projects = async () => {
+    const { data: projects, error } = await getAllProjects()
+
+    if (error) throw new Error("Не получилось загрузить проекты")
+
     return (
-        <main>
-            <div className="pt-4 mr-5 grid grid-cols-4 gap-5">
-                <Link className="w-full" href="/projects/create">
-                    <div className={yellowColumn}>
-                        <AddIcon sx={{ fontSize: 76 }} className="text-white" />
-                    </div>
-                </Link>
-            </div>   
-        </main>
+        <>
+            {projects.map(({ id, title }) => (
+                <ProjectCard id={id!} title={title!} key={id} />
+            ))}
+        </>
     )
 }
 
-async function getData() {
-    const res = await fetch('http://213.171.9.177:8000/api/v1/projects/')
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
+export default function Page() {
+    return (
+        <div className="pt-3 mr-5 grid grid-cols-4 gap-5">
+            <AddProjectCard />
+
+            <Suspense fallback={<SkeletonProjects />}>
+                <Projects />
+            </Suspense>
+        </div>
+    )
 }
