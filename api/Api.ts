@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { CardRequest, CardResponse, ProjectRequest, ProjectResponse } from "./data-contracts";
+import { CardRequest, CardResponse, ProjectRequest, ProjectResponse } from "./dataСontracts";
 
 const baseUrl: string = "http://213.171.9.177:8000";
 

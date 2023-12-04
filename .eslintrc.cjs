@@ -23,6 +23,9 @@ module.exports = {
         "@stylistic/semi": [
             "warn",
             "never"
+        ],
+        "no-unused-vars": [
+            "off"
         ]
     }
 }

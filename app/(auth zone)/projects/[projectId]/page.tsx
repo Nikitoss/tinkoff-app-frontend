@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import AddIcon from '@mui/icons-material/Add'
-import { usePathname  } from 'next/navigation'
 
 export default function Page() {
     return (
@@ -16,7 +15,7 @@ export default function Page() {
                     <div className="w-full h-16 bg-gray-200 rounded-tl-lg rounded-tr-lg flex justify-center items-center">
                         <h1 className="font-bold">НОВЫЕ</h1>
                     </div>
-                    <Link className="relative w-full" href="/create">
+                    <Link className="relative w-full" href="tasks/create">
                         <div className="w-full aspect-video bg-gray-200 rounded-bl-lg rounded-br-lg flex justify-center items-center ease-out duration-300 hover:bg-gray-100 hover:shadow">
                             <AddIcon sx={{ fontSize: 76 }} className="text-white" />
                         </div>
