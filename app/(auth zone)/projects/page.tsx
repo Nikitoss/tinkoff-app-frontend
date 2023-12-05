@@ -26,7 +26,7 @@ const ProjectCard = ({ title, id }: { title: string, id: number }) => (
     </Link>
 )
 
-const SkeletonProjects = ({ count = 3 }) => {
+const SkeletonProjects = ({ count = 2 }) => {
     const ids = Array.from(Array(count).keys())
 
     return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
