@@ -11,7 +11,7 @@
 
 import { CardRequest, CardResponse, ProjectRequest, ProjectResponse } from "./dataСontracts";
 
-const baseUrl: string = "https://213.171.9.177";
+const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
