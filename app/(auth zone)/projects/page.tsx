@@ -1,3 +1,5 @@
+'use client'
+
 import { getAllProjects } from '@/api/Api'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
@@ -33,7 +35,10 @@ const SkeletonProjects = ({ count = 3 }) => {
 const Projects = async () => {
     const { data: projects, error } = await getAllProjects()
 
-    if (error) throw new Error("Не получилось загрузить проекты")
+    if (error) {
+        console.error(error)
+        return null
+    }
 
     return (
         <>
