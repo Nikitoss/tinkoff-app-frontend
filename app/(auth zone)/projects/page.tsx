@@ -1,9 +1,10 @@
 'use client'
 
 import { getAllProjects } from '@/api/Api'
+import { ProjectResponse } from '@/api/dataСontracts'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const card = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`
@@ -32,13 +33,31 @@ const SkeletonProjects = ({ count = 2 }) => {
     return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
 }
 
-const Projects = async () => {
-    const { data: projects, error } = await getAllProjects()
+const Projects = () => {
+    const [status, setStatus] = useState('loading')
+    const [projects, setProjects] = useState([] as ProjectResponse[])
 
-    if (error) {
-        console.error(error)
-        return null
-    }
+    useEffect(() => {
+        getAllProjects()
+            .then(({ data: projects, error }) => {
+                if (error) {
+                    console.error(error)
+                    setStatus('error')
+                    return
+                }
+                setProjects(projects)
+                setStatus('ready')
+            })
+            .catch((error) => {
+                console.error(error)
+                setStatus('error')
+            })
+    }, [])
+
+
+    if (status === 'error') return null;
+
+    if (status === 'loading') return <SkeletonProjects />
 
     return (
         <>
@@ -54,9 +73,7 @@ export default function Page() {
         <div className="pt-3 mr-5 grid grid-cols-4 gap-5">
             <AddProjectCard />
 
-            <Suspense fallback={<SkeletonProjects />}>
-                <Projects />
-            </Suspense>
+            <Projects />
         </div>
     )
 }
