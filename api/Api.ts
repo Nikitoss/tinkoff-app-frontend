@@ -11,7 +11,7 @@
 
 import { CardRequest, CardResponse, ProjectRequest, ProjectResponse } from "./dataСontracts";
 
-const baseUrl: string = "http://213.171.9.177:8000";
+const baseUrl: string = "https://213.171.9.177";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
