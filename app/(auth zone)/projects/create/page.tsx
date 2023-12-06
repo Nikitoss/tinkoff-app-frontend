@@ -23,7 +23,7 @@ export default function Page() {
                             <input type="text" id="name" placeholder="Мой последний проект" className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal" />
                         </div>   
                         <div className="flex justify-center">
-                            <Link className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="/projects">
+                            <Link className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./">
                                 Добавить
                             </Link>
                         </div>

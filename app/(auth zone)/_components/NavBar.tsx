@@ -10,8 +10,8 @@ const hoverAnimation = "ease-out duration-300 hover:scale-125"
 
 const NavBar = () => {
     return (
-        <div className="fixed w-20 pl-3 py-3 h-screen">
-            <div className='relative h-full rounded-lg bg-yellow-300'>
+        <div className="fixed w-20 pl-3 h-screen">
+            <div className='relative h-full bg-yellow-300'>
                 <ul className="relative top-4 space-y-2.5">
                     <Link className={`flex justify-center ${hoverAnimation}`} href="/profile">
                         <AccountCircleIcon sx={{ fontSize: 56 }} />
