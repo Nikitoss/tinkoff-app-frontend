@@ -6,6 +6,7 @@ import { Grid, Link } from '@mui/material'
 export default function Home() {
     return (
         <main>
+            <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
             <Container fixed>
                 <Grid
                     container

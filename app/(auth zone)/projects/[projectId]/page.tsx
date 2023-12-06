@@ -85,7 +85,7 @@ export default function Page() {
                         </div>
                     </Link>
 
-                    {/* <Tasks /> */}
+                    {/* <Tasks projectId={params.projectId} /> */}
                 </div>
                 
                 <div>
