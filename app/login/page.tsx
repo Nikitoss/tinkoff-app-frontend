@@ -22,7 +22,11 @@ export default function Page() {
                         <form className="px-16 space-y-2">
                             <input name="login" type="text" placeholder="Логин" className="w-full flex justify-center rounded-[7px] p-2" />
                             <input name="password" type="text" placeholder="Пароль (не 123456!)" className="w-full flex justify-center rounded-[7px] p-2" />
-                            <Link href='/projects' className="flex justify-center align-text-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300">Войти</Link>
+                            <div className="flex justify-center">
+                                <Link className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="/projects">
+                                    <span className="flex items-center">Войти</span>  
+                                </Link>  
+                            </div>                                         
                         </form>
                         
                         <div className="py-2 items-baseline text-neutral-600 text-center">
