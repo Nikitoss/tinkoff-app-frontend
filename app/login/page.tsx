@@ -18,13 +18,13 @@ export default function Page() {
                 >
                     <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0 mb-12">
                         <span className="font-bold text-2xl flex justify-center mb-4">Вход в систему</span>
-                        <form className="px-16 space-y-2">
+                        <form method="POST" className="px-16 space-y-2">
                             <input name="login" type="text" placeholder="Логин" className="w-full flex justify-center rounded-[7px] p-2" />
                             <input name="password" type="text" placeholder="Пароль (не 123456!)" className="w-full flex justify-center rounded-[7px] p-2" />
                             <div className="flex justify-center">
                                 <input type="submit" value="Войти" className="h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" />
                             </div>
-                        </form>  
+                        </form>
                         
                         <div className="py-2 items-baseline text-neutral-600 text-center">
                             <p className="text-xs">Приступая к работе, вы соглашаетесь с нашими&nbsp; 

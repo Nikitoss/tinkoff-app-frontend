@@ -192,3 +192,18 @@ export const createProject = (data: ProjectRequest) =>
         method: "POST",
         body: data
     });
+
+// /**
+//  * No description
+//  *
+//  * @tags Cards
+//  * @name VoteForCards
+//  * @summary Vote for cards
+//  * @request POST:/api/v1/projects/{projectId}/cards/{cardId}/vote
+//  */
+// export const voteForCards = (projectId: number, cardId: number, data: VoteTypeRequest) =>
+//     request<CardResponse>({
+//         path: `/api/v1/projects/${projectId}/cards/${cardId}/vote`,
+//         method: "POST",
+//         body: data
+//     });

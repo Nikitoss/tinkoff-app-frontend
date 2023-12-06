@@ -32,6 +32,8 @@ export interface CardRequest {
 export interface CardResponse {
   /** @format int64 */
   id?: number;
+  /** @format int64 */
+  projectId?: number;
   title?: string;
   summary?: string;
   /** @format date-time */
