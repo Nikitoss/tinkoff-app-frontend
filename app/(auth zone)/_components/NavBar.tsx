@@ -12,18 +12,18 @@ const NavBar = () => {
     return (
         <div className="fixed w-20 pl-3 py-3 h-screen">
             <div className='relative h-full rounded-lg bg-yellow-300'>
-                <Link className={`relative top-4 flex justify-center ${hoverAnimation}`} href="/profile">
-                    <AccountCircleIcon sx={{ fontSize: 56 }} />
-                </Link>
-
-                <ul className="absolute bottom-4 inset-x-0 space-y-2.5">
+                <ul className="relative top-4 space-y-2.5">
+                    <Link className={`flex justify-center ${hoverAnimation}`} href="/profile">
+                        <AccountCircleIcon sx={{ fontSize: 56 }} />
+                    </Link>
                     <Link className={`flex justify-center ${hoverAnimation}`} href="/logout">
                         <ExitToAppIcon sx={{ fontSize: 48 }} />
                     </Link>
-                    <Link className={`flex justify-center items-bottom ${hoverAnimation}`} href="/settings">
-                        <SettingsIcon sx={{ fontSize: 48 }} />
-                    </Link>
                 </ul>
+                
+                <Link className={`absolute bottom-4 flex justify-center inset-x-0 ${hoverAnimation}`} href="/settings">
+                    <SettingsIcon sx={{ fontSize: 48 }} />
+                </Link>
             </div>
         </div>
     )

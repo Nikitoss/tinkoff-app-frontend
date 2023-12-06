@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
 import React, { Suspense, useEffect, useState } from 'react'
 
-const card = "w-full aspect-video rounded-lg flex justify-center items-center ease-out duration-300 hover:shadow"
+const card = "w-full aspect-video rounded-lg flex justify-center items-center text-center ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`
 const yellowCard = `${card} bg-yellow-300 hover:bg-yellow-400`
 const skeletonCard = `${card} bg-gray-300 animate-pulse`
@@ -76,4 +76,14 @@ export default function Page() {
             <Projects />
         </div>
     )
+}
+
+async function getData() {
+    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/`)
+   
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+   
+    return res.json()
 }
