@@ -46,3 +46,17 @@ export interface CardResponse {
   downVote?: number;
   status?: "NEW" | "IN_WORK" | "ACCEPTED" | "DISMISS";
 }
+
+export interface VoteRequest {
+  voteType?: "VOTE_FOR" | "VOTE_AGAINST";
+}
+
+export interface RegisterRequest {
+  login?: string;
+  password?: string;
+}
+
+export interface LoginRequest {
+  login?: string;
+  password?: string;
+}

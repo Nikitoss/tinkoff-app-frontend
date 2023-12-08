@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { CardRequest, CardResponse, ProjectRequest, ProjectResponse } from "./dataСontracts";
+import { CardRequest, CardResponse, ProjectRequest, ProjectResponse, VoteRequest, RegisterRequest, LoginRequest } from "./dataСontracts";
 
 const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 
@@ -193,17 +193,47 @@ export const createProject = (data: ProjectRequest) =>
         body: data
     });
 
-// /**
-//  * No description
-//  *
-//  * @tags Cards
-//  * @name VoteForCards
-//  * @summary Vote for cards
-//  * @request POST:/api/v1/projects/{projectId}/cards/{cardId}/vote
-//  */
-// export const voteForCards = (projectId: number, cardId: number, data: VoteTypeRequest) =>
-//     request<CardResponse>({
-//         path: `/api/v1/projects/${projectId}/cards/${cardId}/vote`,
-//         method: "POST",
-//         body: data
-//     });
+/**
+ * No description
+ *
+ * @tags Cards
+ * @name VoteForCards
+ * @summary Vote for cards
+ * @request POST:/api/v1/projects/{projectId}/cards/{cardId}/vote
+ */
+export const voteForCards = (projectId: number, cardId: number, data: VoteRequest) =>
+    request<200>({
+        path: `/api/v1/projects/${projectId}/cards/${cardId}/vote`,
+        method: "POST",
+        body: data
+    });
+
+/**
+ * No description
+ *
+ * @tags Authentification
+ * @name RegisterUser
+ * @summary Register user
+ * @request POST:/api/v1/auth/register/
+ */
+export const registerUser = (data: RegisterRequest) =>
+    request<200>({
+        path: `/api/v1/auth/register/`,
+        method: "POST",
+        body: data
+    });
+
+/**
+ * No description
+ *
+ * @tags Authentification
+ * @name LoginUser
+ * @summary Login user
+ * @request POST:/api/v1/auth/login/
+ */
+export const loginUser = (data: LoginRequest) =>
+    request<200>({
+        path: `/api/v1/auth/login/`,
+        method: "POST",
+        body: data
+    });
