@@ -202,7 +202,7 @@ export const createProject = (data: ProjectRequest) =>
  * @request POST:/api/v1/projects/{projectId}/cards/{cardId}/vote
  */
 export const voteForCards = (projectId: number, cardId: number, data: VoteRequest) =>
-    request<200>({
+    request<boolean>({
         path: `/api/v1/projects/${projectId}/cards/${cardId}/vote`,
         method: "POST",
         body: data

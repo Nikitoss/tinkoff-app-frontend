@@ -18,11 +18,10 @@ export default function Page() {
     const params = useParams()
 
     const TaskCard = ({ title, createdAt, projectId, taskId }: { title: string, createdAt: string, projectId: number, taskId: number }) => (
-        <Link className="w-full" key={taskId} href={`/projects/${projectId}/tasks/${taskId}`}>
+        <Link className="w-full" key={taskId} href={`/projects/${params.projectId}/tasks/${taskId}`}>
             <div className={grayCard}>
                 <div className="flex justify-center items-start font-bold py-4">
                     {title}
-
                 </div>
                 <div className="flex justify-center items-start">
                     {/* {createdAt} */}
@@ -122,7 +121,7 @@ export default function Page() {
 }
 
 async function getData(projectId: number) {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/${projectId}/tasks`)
+    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/${projectId}/cards`)
    
     if (!res.ok) {
         throw new Error('Failed to fetch data')
