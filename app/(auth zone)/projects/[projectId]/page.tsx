@@ -77,9 +77,9 @@ export default function Page() {
 
     useEffect(() => {
         getProjectById(Number(params.projectId))
-        .then(({ data: project }) => {
-            setProjects(project)
-        })
+            .then(({ data: project }) => {
+                setProjects(project)
+            })
     }, [])
     
 
