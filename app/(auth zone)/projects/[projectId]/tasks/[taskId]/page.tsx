@@ -14,12 +14,12 @@ const skeletonCard = `${card} bg-neutral-300 animate-pulse`
 
 export default function Page() {
     const params = useParams()
-
+    const { projectId, taskId } = useParams();
     const [status, setStatus] = useState('loading')
-    const [task, setTask] = useState([] as CardResponse)
+    const [task, setTask] = useState({} as CardResponse)
 
     useEffect(() => {
-        getCardById(Number(params.projectId), Number(params.cardId))
+        getCardById(Number(projectId), Number(taskId))
             .then(({ data: tasks, error }) => {
                 if (error) {
                     console.error(error)
@@ -33,7 +33,7 @@ export default function Page() {
                 console.error(error)
                 setStatus('error')
             })
-    }, [params.projectId, params.cardId])
+    }, [projectId, taskId])
 
     return (
         <main>
