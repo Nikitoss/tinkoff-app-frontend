@@ -4,7 +4,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import { Grid, Link } from '@mui/material'
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 
 export default function Page() {
     const router = useRouter()
