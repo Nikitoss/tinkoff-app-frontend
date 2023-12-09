@@ -4,6 +4,9 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
+import { createProject } from '@/api/Api'
+import { ProjectRequest, ProjectResponse } from '@/api/dataСontracts'
+import { useState } from 'react'
 
 export default function Page() {
     return (
@@ -22,9 +25,9 @@ export default function Page() {
                             <label htmlFor="name">Введите название проекта</label>
                             <input type="text" id="name" placeholder="Мой последний проект" className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal" />
                         </div>   
-                        <div className="flex justify-center">
-                            <Link className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./">
-                                Добавить
+                        <div className="flex justify-center mt-4 px-36">
+                            <Link className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./" >
+                                <span className="flex items-center">Добавить</span>
                             </Link>
                         </div>
                     </div>  

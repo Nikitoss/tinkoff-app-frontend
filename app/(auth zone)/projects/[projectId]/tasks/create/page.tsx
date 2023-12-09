@@ -4,6 +4,8 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
+import { createCard } from '@/api/Api'
+import { CardResponse } from '@/api/dataСontracts'
 
 export default function Page() {
     return (
