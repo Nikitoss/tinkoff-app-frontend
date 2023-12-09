@@ -4,7 +4,7 @@ import { getAllCards, getProjectById } from '@/api/Api'
 import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
@@ -16,72 +16,80 @@ const card = "w-full inset-x-0 aspect-video px-4 rounded-lg ease-out duration-30
 const grayCard = `${card} bg-neutral-300 hover:bg-gray-400`
 const skeletonCard = `${card} bg-neutral-300 animate-pulse`
 
-export default function Page() {
-    const params = useParams()
-
-    const TaskCard = ({ title, upVote, downVote, projectId, taskId }: { title: string, upVote: number, downVote: number, projectId: number, taskId: number }) => (
-        <Link className="w-full" key={taskId} href={`/projects/${params.projectId}/tasks/${taskId}`}>
-            <div className={grayCard}>
-                <div className="flex justify-center items-start font-bold py-4">
-                    {title}
-                </div>
-                <div className="flex justify-center items-end text-2xl">
-                    {upVote}&nbsp; <ThumbUpIcon /> &nbsp;| {downVote}&nbsp; <ThumbDownIcon />
-                </div>
+const CreateTaskCard = ({ projectId }: { projectId: number }) => {
+    return (
+        <Link href={`${projectId}/tasks/create`} className="relative w-full">
+            <div className="w-full aspect-video bg-gray-200 rounded-bl-lg rounded-br-lg flex justify-center items-center ease-out duration-300 hover:bg-neutral-100 hover:shadow">
+                <AddIcon sx={{ fontSize: 76 }} className="text-white" />
             </div>
         </Link>
     )
-    
-    const SkeletonTasks = ({ count = 1 }) => {
-        const ids = Array.from(Array(count).keys())
-    
-        return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
-    }
-    
-    const Tasks = () => {
-        const [status, setStatus] = useState('loading')
-        const [tasks, setTasks] = useState([] as CardResponse[])
-    
-        useEffect(() => {
-            getAllCards(Number(params.projectId))
-                .then(({ data: tasks, error }) => {
-                    if (error) {
-                        console.error(error)
-                        setStatus('error')
-                        return
-                    }
-                    setTasks(tasks)
-                    setStatus('ready')
-                })
-                .catch((error) => {
-                    console.error(error)
-                    setStatus('error')
-                })
-        }, [])
-    
-        if (status === 'error') return null;
-    
-        if (status === 'loading') return <SkeletonTasks />
-    
-        return (
-            <>
-                {tasks.map(({ projectId, id, title, upVote, downVote }) => (
-                    <TaskCard projectId={projectId!} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} key={id} />
-                ))}
-            </>
-        )
-    }
+}
 
+const TaskCard = ({ title, upVote, downVote, projectId, taskId }: { title: string, upVote: number, downVote: number, projectId: number, taskId: number }) => (
+    <Link className="w-full" key={taskId} href={`/projects/${projectId}/tasks/${taskId}`}>
+        <div className={grayCard}>
+            <div className="flex justify-center items-start font-bold py-4">
+                {title}
+            </div>
+            <div className="flex justify-center items-end text-2xl">
+                {upVote}&nbsp; <ThumbUpIcon /> &nbsp;| {downVote}&nbsp; <ThumbDownIcon />
+            </div>
+        </div>
+    </Link>
+)
 
-    const [project, setProjects] = useState([] as ProjectResponse)
+const SkeletonTasks = ({ count = 1 }) => {
+    const ids = Array.from(Array(count).keys())
+
+    return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
+}
+
+const Tasks = ({ projectId }: { projectId: number }) => {
+    const [status, setStatus] = useState('loading')
+    const [tasks, setTasks] = useState([] as CardResponse[])
 
     useEffect(() => {
-        getProjectById(Number(params.projectId))
+        getAllCards(projectId)
+            .then(({ data: tasks, error }) => {
+                if (error) {
+                    console.error(error)
+                    setStatus('error')
+                    return
+                }
+                setTasks(tasks)
+                setStatus('ready')
+            })
+            .catch((error) => {
+                console.error(error)
+                setStatus('error')
+            })
+    }, [projectId])
+
+    if (status === 'error') return null
+
+    if (status === 'loading') return <SkeletonTasks />
+
+    return (
+        <>
+            {tasks.map(({ id, title, upVote, downVote }) => (
+                <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} key={id} />
+            ))}
+        </>
+    )
+}
+
+export default function Page() {
+    const params = useParams()
+    const [project, setProjects] = useState([] as ProjectResponse)
+    const projectId = Number(params.projectId)
+
+    useEffect(() => {
+        getProjectById(projectId)
             .then(({ data: project }) => {
                 setProjects(project)
             })
-    }, [])
-    
+    }, [projectId])
 
     return (
         <main>
@@ -97,30 +105,26 @@ export default function Page() {
                         <h1 className="font-bold">НОВЫЕ</h1>
                     </div>
                     <div className={column}>
-                        <Tasks />
+                        <Tasks projectId={projectId} />
 
-                        <Link href={`${params.projectId}/tasks/create`} className="relative w-full">
-                            <div className="w-full aspect-video bg-gray-200 rounded-bl-lg rounded-br-lg flex justify-center items-center ease-out duration-300 hover:bg-neutral-100 hover:shadow">
-                                <AddIcon sx={{ fontSize: 76 }} className="text-white" />
-                            </div>
-                        </Link> 
-                    </div>             
+                        <CreateTaskCard projectId={projectId} />
+                    </div>
                 </div>
-                
+
                 <div>
                     <div className={columnHat}>
                         <h1 className="font-bold">В РАБОТЕ</h1>
                     </div>
                     <div className={column}></div>
                 </div>
-                
+
                 <div>
                     <div className={columnHat}>
                         <h1 className="font-bold">ПРИНЯТЫЕ</h1>
                     </div>
                     <div className={column}></div>
                 </div>
-                
+
                 <div>
                     <div className={columnHat}>
                         <h1 className="font-bold">ОТКЛОНЁННЫЕ</h1>
@@ -130,14 +134,4 @@ export default function Page() {
             </div>
         </main>
     )
-}
-
-async function getData(projectId: number) {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/${projectId}/cards`)
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
 }

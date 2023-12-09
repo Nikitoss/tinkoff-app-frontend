@@ -5,7 +5,6 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
 import { getCardById } from '@/api/Api'
 import { CardResponse } from '@/api/dataСontracts'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
@@ -15,12 +14,12 @@ const skeletonCard = `${card} bg-neutral-300 animate-pulse`
 
 export default function Page() {
     const params = useParams()
-       
+    const { projectId, taskId } = useParams();
     const [status, setStatus] = useState('loading')
-    const [task, setTask] = useState([] as CardResponse)
+    const [task, setTask] = useState({} as CardResponse)
 
     useEffect(() => {
-        getCardById(Number(params.projectId), Number(params.cardId))
+        getCardById(Number(projectId), Number(taskId))
             .then(({ data: tasks, error }) => {
                 if (error) {
                     console.error(error)
@@ -34,7 +33,7 @@ export default function Page() {
                 console.error(error)
                 setStatus('error')
             })
-    }, [])
+    }, [projectId, taskId])
 
     return (
         <main>
@@ -63,7 +62,7 @@ export default function Page() {
                             </button>
                             &nbsp;| 0&nbsp;
                             <button>
-                                <ThumbDownIcon sx={{ fontSize: 36 }} />       
+                                <ThumbDownIcon sx={{ fontSize: 36 }} />
                             </button>
                         </h1>
                     </div>
@@ -77,14 +76,4 @@ export default function Page() {
             </div>
         </main>
     )
-}
-
-async function getData(projectId: number, cardId: number) {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/${projectId}/tasks/${cardId}`)
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
 }
