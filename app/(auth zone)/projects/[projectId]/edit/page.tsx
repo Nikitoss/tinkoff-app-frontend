@@ -68,7 +68,7 @@ export default function Page() {
                                 onClick={(event) => {
                                     updateProject(Number(project.id), values)
                                 }}
-                                ><span className="flex items-center">Изменить</span>
+                            ><span className="flex items-center">Изменить</span>
                             </Link>
                         </div>
                     </div>  
