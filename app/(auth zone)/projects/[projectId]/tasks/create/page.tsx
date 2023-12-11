@@ -62,9 +62,9 @@ export default function Page() {
                                 type="submit"
                                 value="Добавить"
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                onClick={(event) =>
-                                    createCard(Number(projectId), values)
-                                }
+                                // onClick={(event) =>
+                                //     createCard(Number(projectId), values)
+                                // }
                             />
                         </div>
                     </form>

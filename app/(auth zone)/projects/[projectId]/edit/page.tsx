@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
 import { getProjectById, updateProject } from '@/api/Api'
-import { ProjectRequest, ProjectResponse } from '@/api/dataСontracts'
+import { ProjectResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
@@ -33,6 +33,10 @@ export default function Page() {
 
     const [titleValues, setTitleValues] = useState("")
 
+    const values = {
+        title: titleValues
+    }
+
     return (
         <main>
             <Container fixed>
@@ -58,8 +62,13 @@ export default function Page() {
                             />
                         </div>   
                         <div className="flex justify-center mt-4 px-36">
-                            <Link className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./" >
-                                <span className="flex items-center">Изменить</span>
+                            <Link
+                                className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                href="./"
+                                onClick={(event) => {
+                                    updateProject(Number(project.id), values)
+                                }}
+                                ><span className="flex items-center">Изменить</span>
                             </Link>
                         </div>
                     </div>  

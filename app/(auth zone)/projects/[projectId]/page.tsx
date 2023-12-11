@@ -17,16 +17,6 @@ const card = "w-full inset-x-0 aspect-video px-4 rounded-lg ease-out duration-30
 const grayCard = `${card} bg-neutral-300 hover:bg-gray-400`
 const skeletonCard = `${card} bg-neutral-300 animate-pulse`
 
-const CreateTaskCard = ({ projectId }: { projectId: number }) => {
-    return (
-        <Link href={`${projectId}/tasks/create`} className="relative w-full">
-            <div className="w-full aspect-video bg-gray-200 rounded-bl-lg rounded-br-lg flex justify-center items-center ease-out duration-300 hover:bg-neutral-100 hover:shadow">
-                <AddIcon sx={{ fontSize: 76 }} className="text-white" />
-            </div>
-        </Link>
-    )
-}
-
 const TaskCard = ({ title, upVote, downVote, projectId, taskId }: { title: string, upVote: number, downVote: number, projectId: number, taskId: number }) => (
     <Link className="w-full" key={taskId} href={`/projects/${projectId}/tasks/${taskId}`}>
         <div className={grayCard}>
@@ -107,8 +97,6 @@ export default function Page() {
                     </div>
                     <div className={column}>
                         <Tasks projectId={projectId} />
-
-                        <CreateTaskCard projectId={projectId} />
                     </div>
                 </div>
 

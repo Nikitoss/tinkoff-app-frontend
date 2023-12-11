@@ -1,14 +1,18 @@
 'use client'
 
-import { getAllProjects } from '@/api/Api'
+import { getAllProjects, deleteProject } from '@/api/Api'
 import { ProjectResponse } from '@/api/dataСontracts'
-import AddIcon from '@mui/icons-material/Add'
+
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
-const card = "w-full aspect-video rounded-lg flex justify-center items-center text-center ease-out duration-300 hover:shadow"
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const card = "w-full aspect-video text-center rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`
-const yellowCard = `${card} bg-yellow-300 hover:bg-yellow-400`
+const yellowCard = `${card} flex justify-center items-center bg-yellow-300 hover:bg-yellow-400`
 const skeletonCard = `${card} bg-gray-300 animate-pulse`
 
 const AddProjectCard = () => (
@@ -21,8 +25,14 @@ const AddProjectCard = () => (
 
 const ProjectCard = ({ title, id }: { title: string, id: number }) => (
     <Link className="w-full" key={id} href={`/projects/${id}`}>
-        <div className={grayCard}>
-            {title}
+        <div className={grayCard}>           
+            <div className="flex justify-center text-center">
+                {title}
+            </div>
+            <div className="items-start relative mr-2 mt-2">
+                <Link href={`/projects/${id}/edit`} className="hover:text-neutral-500"><EditIcon sx={{ fontSize: 20 }}/></Link>
+                <Link href="#" className="hover:text-neutral-500" onClick={(event) => deleteProject(id)}><DeleteIcon sx={{ fontSize: 20 }}/></Link>
+            </div>
         </div>
     </Link>
 )
