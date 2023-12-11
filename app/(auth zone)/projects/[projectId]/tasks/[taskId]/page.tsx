@@ -47,7 +47,7 @@ export default function Page() {
                     alignItems="center"
                     className="min-h-screen"
                 >
-                    <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0 mb-12">
+                    <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0">
                         <div className="flex justify-center space-x-3 mb-4">
                             <span className="font-bold text-2xl flex">{task.title}</span>
                             <span className="font-bold flex items-center px-2 rounded-md bg-orange-300 text-sm w-fit">{task.status}</span>

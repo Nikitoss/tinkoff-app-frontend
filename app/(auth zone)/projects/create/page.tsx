@@ -3,12 +3,18 @@
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
-import Link from 'next/link'
 import { createProject } from '@/api/Api'
-import { ProjectRequest, ProjectResponse } from '@/api/dataСontracts'
+import { ProjectRequest } from '@/api/dataСontracts'
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function Page() {
+    const [titleValues, setTitleValues] = useState("")
+
+    const values = {
+        title: titleValues
+    }
+    
     return (
         <main>
             <Container fixed>
@@ -23,12 +29,25 @@ export default function Page() {
                         <span className="font-bold text-2xl flex justify-center">Добавить проект</span>
                         <div className="px-16 space-y-1">
                             <label htmlFor="name">Введите название проекта</label>
-                            <input type="text" id="name" placeholder="Мой последний проект" className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal" />
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Мой последний проект"
+                                className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
+                                onChange={(event) =>
+                                    setTitleValues(event.target.value)
+                                }
+                            />
                         </div>   
                         <div className="flex justify-center mt-4 px-36">
-                            <Link className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./" >
-                                <span className="flex items-center">Добавить</span>
-                            </Link>
+                            <Link
+                                type="submit"
+                                href="./"
+                                className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                onClick={(event) =>
+                                    createProject(values)
+                                }
+                            >Добавить</Link>
                         </div>
                     </div>  
                 </Grid>

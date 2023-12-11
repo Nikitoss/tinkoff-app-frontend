@@ -8,9 +8,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import EditIcon from '@mui/icons-material/Edit';
 
 const columnHat = "w-full h-16 bg-neutral-200 rounded-tl-lg rounded-tr-lg flex justify-center items-center"
-const column = "w-full h-full mb-4 bottom-4 bg-neutral-200 rounded-bl-lg rounded-br-lg justify-center items-center"
+const column = "w-full h-screen bottom-4 bg-neutral-200 rounded-bl-lg rounded-br-lg justify-center items-center overflow-y-auto"
 
 const card = "w-full inset-x-0 aspect-video px-4 rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-neutral-300 hover:bg-gray-400`
@@ -96,10 +97,10 @@ export default function Page() {
             <div className="py-4">
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
-                <Link href="" className="hover:text-neutral-500">{project.title}</Link>
+                <Link href={`/projects/${projectId}/edit`} className="hover:text-neutral-500">{project.title} <EditIcon sx={{ fontSize: 16 }}/></Link>
             </div>
 
-            <div className="mr-5 grid grid-cols-4 gap-5">
+            <div className="mr-5 grid grid-cols-4 gap-5 mb-4">
                 <div>
                     <div className={columnHat}>
                         <h1 className="font-bold">НОВЫЕ</h1>
