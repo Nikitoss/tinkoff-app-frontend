@@ -55,10 +55,13 @@ export default function Page() {
                                 type="text"
                                 id="name"
                                 placeholder={project.title}
+                                required
+                                minLength={2}
+                                maxLength={30}
                                 className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
-                                onChange={(event) =>
+                                onChange={(event) => 
                                     setTitleValues(event.target.value)
-                                }
+                                }                               
                             />
                         </div>   
                         <div className="flex justify-center mt-4 px-36">

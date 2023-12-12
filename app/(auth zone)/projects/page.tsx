@@ -8,11 +8,10 @@ import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
 
-const card = "w-full aspect-video text-center rounded-lg ease-out duration-300 hover:shadow"
+const card = "w-full aspect-video relative flex justify-center items-center text-center rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`
-const yellowCard = `${card} flex justify-center items-center bg-yellow-300 hover:bg-yellow-400`
+const yellowCard = `${card} bg-yellow-300 hover:bg-yellow-400`
 const skeletonCard = `${card} bg-gray-300 animate-pulse`
 
 const AddProjectCard = () => (
@@ -25,15 +24,20 @@ const AddProjectCard = () => (
 
 const ProjectCard = ({ title, id }: { title: string, id: number }) => (
     <Link className="w-full" key={id} href={`/projects/${id}`}>
-        <div className={grayCard}>           
-            <div className="flex justify-center text-center">
+        <div className={grayCard}>
+            <div className="flex justify-center text-center font-bold px-8 text-ellipsis overflow-hidden">
                 {title}
             </div>
-            <div className="items-start relative mr-2 mt-2">
-                <Link href={`/projects/${id}/edit`} className="hover:text-neutral-500"><EditIcon sx={{ fontSize: 20 }}/></Link>
-                <Link href="#" className="hover:text-neutral-500" onClick={(event) => deleteProject(id)}><DeleteIcon sx={{ fontSize: 20 }}/></Link>
-            </div>
-        </div>
+            
+            <ul className="absolute top-2 right-2 space-y-1.5 opacity-0 ease-out duration-100 hover:opacity-100">
+                {/* <Link href="" className="flex justify-center hover:text-neutral-500" onClick={(event) => deleteProject(id)}>
+                    <DeleteIcon sx={{ fontSize: 24 }}/>
+                </Link> */}
+                <Link href={`/projects/${id}/edit`}>
+                    <EditIcon sx={{ fontSize: 26 }}/>
+                </Link>              
+            </ul>
+        </div>       
     </Link>
 )
 

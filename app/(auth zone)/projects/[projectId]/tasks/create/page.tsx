@@ -39,7 +39,9 @@ export default function Page() {
                             <input
                                 type="text"
                                 id="title"
-                                value="Отсутствие печенек"
+                                placeholder="Отсутствие печенек"
+                                minLength={2}
+                                maxLength={30}
                                 className="w-full flex justify-center rounded-[7px] px-1"
                                 onChange={(event) =>
                                     setTitleValues(event.target.value)
@@ -51,7 +53,9 @@ export default function Page() {
                             <input
                                 type="text" 
                                 id="summary"
-                                value="Как ни подойдешь на кухню, все время нет печенек, я начинаю грустить и становлюсь злюкой."
+                                required
+                                minLength={2}
+                                placeholder="Как ни подойдешь на кухню, все время нет печенек, я начинаю грустить и становлюсь злюкой."
                                 className="h-24 w-full rounded-[7px] px-1 inline-block align-text-top text-ellipsis"
                                 onChange={(event) =>
                                     setSummaryValues(event.target.value)

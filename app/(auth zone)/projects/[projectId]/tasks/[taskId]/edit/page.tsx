@@ -70,7 +70,7 @@ export default function Page() {
                             <select
                                 name="status"
                                 id="status"
-                                value={task.status}
+                                placeholder={task.status}
                                 className="font-bold flex items-center justify-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit"
                                 onChange={(event) =>
                                     setStatusValues(event.target.value)
@@ -87,7 +87,10 @@ export default function Page() {
                             <input
                                 type="text"
                                 id="name"
-                                value={task.title}
+                                placeholder={task.title}
+                                required
+                                minLength={2}
+                                maxLength={30}
                                 className="w-full flex justify-center rounded-[7px] px-1"
                                 onChange={(event) =>
                                     setTitleValues(event.target.value)
@@ -99,7 +102,9 @@ export default function Page() {
                             <input
                                 type="text"
                                 id="name"
-                                value={task.summary}
+                                placeholder={task.summary}
+                                required
+                                minLength={2}
                                 className="h-16 w-full items-start rounded-[7px] px-1 align-text-top text-ellipsis"
                                 onChange={(event) =>
                                     setSummaryValues(event.target.value)

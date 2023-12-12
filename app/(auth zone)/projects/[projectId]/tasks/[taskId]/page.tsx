@@ -71,19 +71,21 @@ export default function Page() {
                         <div className="flex justify-center items-end text-4xl">
                             <h1>{task.upVote}&nbsp;
                                 <button
+                                    className="hover:opacity-75"
                                     onClick={(event) => {
                                         voteForCards(Number(task.projectId), Number(task.id), valueFor)
                                     }}
                                 >
-                                    <ThumbUpIcon sx={{ fontSize: 36 }} />
+                                    🔥
                                 </button>
                                 &nbsp;| {task.downVote}&nbsp;
                                 <button
+                                    className="hover:opacity-75"
                                     onClick={(event) => {
                                         voteForCards(Number(task.projectId), Number(task.id), valueAgainst)
                                     }}
                                 >
-                                    <ThumbDownIcon sx={{ fontSize: 36 }} />
+                                    💩
                                 </button>
                             </h1>
                         </div>

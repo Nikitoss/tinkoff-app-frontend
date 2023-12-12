@@ -31,12 +31,15 @@ export default function Page() {
                             <label htmlFor="name">Введите название проекта</label>
                             <input
                                 type="text"
-                                id="name"
+                                id="title"
+                                minLength={2}
+                                maxLength={30}
                                 placeholder="Мой последний проект"
                                 className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
                                 onChange={(event) =>
                                     setTitleValues(event.target.value)
                                 }
+                                required
                             />
                         </div>   
                         <div className="flex justify-center mt-4 px-36">

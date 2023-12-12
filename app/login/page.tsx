@@ -40,9 +40,9 @@ export default function Page() {
                             />
                             <input
                                 name="password"
-                                type="text"
+                                type="password"
                                 placeholder="Пароль (не 123456!)"
-                                className="w-full flex justify-center rounded-[7px] p-2"
+                                className="peer w-full flex justify-center rounded-[7px] p-2"
                                 onChange={(event) => {
                                     setPasswordValues(event.target.value)
                                 }}
