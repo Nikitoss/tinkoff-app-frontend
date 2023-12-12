@@ -60,12 +60,12 @@ export default function Page() {
                         </div> 
                         <div className="flex justify-center mt-4 px-36">
                             <Link
-                                    type="submit"
-                                    href="./../"
-                                    className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                    onClick={(event) =>
-                                        createCard(Number(projectId), values)
-                                    }
+                                type="submit"
+                                href="./../"
+                                className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                onClick={(event) =>
+                                    createCard(Number(projectId), values)
+                                }
                             >
                                 Добавить
                             </Link>
