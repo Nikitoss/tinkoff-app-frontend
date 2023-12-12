@@ -3,7 +3,8 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
-import { getCardById } from '@/api/Api'
+
+import { getCardById, voteForCards } from '@/api/Api'
 import { CardResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
@@ -37,6 +38,15 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
+    type VoteType = "VOTE_FOR" | "VOTE_AGAINST"
+
+    const valueFor = {
+        voteType: "VOTE_FOR" as VoteType
+    }
+    const valueAgainst = {
+        voteType: "VOTE_AGAINST" as VoteType
+    }
+
     return (
         <main>
             <Container fixed>
@@ -60,11 +70,19 @@ export default function Page() {
                         </div>
                         <div className="flex justify-center items-end text-4xl">
                             <h1>{task.upVote}&nbsp;
-                                <button>
+                                <button
+                                    onClick={(event) => {
+                                        voteForCards(Number(task.projectId), Number(task.id), valueFor)
+                                    }}
+                                >
                                     <ThumbUpIcon sx={{ fontSize: 36 }} />
                                 </button>
                                 &nbsp;| {task.downVote}&nbsp;
-                                <button>
+                                <button
+                                    onClick={(event) => {
+                                        voteForCards(Number(task.projectId), Number(task.id), valueAgainst)
+                                    }}
+                                >
                                     <ThumbDownIcon sx={{ fontSize: 36 }} />
                                 </button>
                             </h1>

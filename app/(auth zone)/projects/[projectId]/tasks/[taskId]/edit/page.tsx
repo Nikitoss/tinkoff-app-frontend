@@ -1,6 +1,6 @@
 'use client'
 
-import { getCardById } from '@/api/Api'
+import { getCardById, updateCard } from '@/api/Api'
 import { CardResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
@@ -8,6 +8,7 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
+import { stat } from 'fs'
 
 const card = "w-full inset-x-0 aspect-video px-4 rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-neutral-300 hover:bg-gray-400`
@@ -35,6 +36,23 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
+    const [titleValues, setTitleValues] = useState("")
+    const [summaryValues, setSummaryValues] = useState("")
+    const [statusValues, setStatusValues] = useState({})
+
+    enum Status {
+        New = "NEW",
+        InWork = "IN_WORK",
+        Accepted = "ACCEPTED",
+        Dismiss = "DISMISS"
+    }
+
+    const values = {
+        title: titleValues,
+        summary: summaryValues,
+        status: statusValues as Status
+    }
+
     return (
         <main>
             <Container fixed>
@@ -49,23 +67,53 @@ export default function Page() {
                         <span className="font-bold text-2xl flex justify-center">Редактировать предложение</span>
                         <div className="px-16 space-x-4 flex">
                             <label htmlFor="name">Изменить статус</label>
-                            <select name="status" id="status" className="font-bold flex items-center justify-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit">
-                                <option value="new">NEW</option>
-                                <option value="inprogress">IN PROGRESS</option>
-                                <option value="accepted">ACCEPTED</option>
-                                <option value="declined">REJECTED</option>
+                            <select
+                                name="status"
+                                id="status"
+                                value={task.status}
+                                className="font-bold flex items-center justify-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit"
+                                onChange={(event) =>
+                                    setStatusValues(event.target.value)
+                                }
+                            >
+                                <option value="NEW">NEW</option>
+                                <option value="IN_WORK">IN PROGRESS</option>
+                                <option value="ACCEPTED">ACCEPTED</option>
+                                <option value="DISMISS">REJECTED</option>
                             </select>
                         </div>
                         <div className="px-16">
                             <label htmlFor="title">Введите название задачи</label>
-                            <input type="text" id="name" placeholder={task.title} className="w-full flex justify-center rounded-[7px] px-1" />
+                            <input
+                                type="text"
+                                id="name"
+                                value={task.title}
+                                className="w-full flex justify-center rounded-[7px] px-1"
+                                onChange={(event) =>
+                                    setTitleValues(event.target.value)
+                                }
+                            />
                         </div>
                         <div className="px-16">
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
-                            <input type="text" id="name" placeholder={task.summary} className="h-16 w-full items-start rounded-[7px] px-1 align-text-top text-ellipsis" />
+                            <input
+                                type="text"
+                                id="name"
+                                value={task.summary}
+                                className="h-16 w-full items-start rounded-[7px] px-1 align-text-top text-ellipsis"
+                                onChange={(event) =>
+                                    setSummaryValues(event.target.value)
+                                }
+                            />
                         </div> 
                         <div className="flex justify-center mt-4 px-36">
-                            <Link className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300" href="./">
+                            <Link
+                                className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                href=""
+                                onClick={(event) => {
+                                    updateCard(Number(task.projectId), Number(task.id), values)
+                                }}
+                            >
                                 <span className="flex items-center">Изменить</span>  
                             </Link>
                         </div>

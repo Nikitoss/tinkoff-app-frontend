@@ -7,8 +7,8 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const card = "w-full aspect-video text-center rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`

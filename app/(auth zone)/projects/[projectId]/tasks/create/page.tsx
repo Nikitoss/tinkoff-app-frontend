@@ -4,21 +4,22 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import { createCard } from '@/api/Api'
-import { CardRequest } from '@/api/dataСontracts'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Page() {
     const params = useParams()
     const projectId = params.projectId
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
-    const [statusValues, setStatusValues] = useState("")
+
+    type Status = "NEW" | "IN_WORK" | "ACCEPTED" | "DISMISS"
 
     const values = {
         title: titleValues,
-        summary: statusValues,
-        status: "NEW"
+        summary: summaryValues,
+        status: "NEW" as Status
     }
 
     return (
@@ -38,7 +39,7 @@ export default function Page() {
                             <input
                                 type="text"
                                 id="title"
-                                placeholder="Отсутствие печенек"
+                                value="Отсутствие печенек"
                                 className="w-full flex justify-center rounded-[7px] px-1"
                                 onChange={(event) =>
                                     setTitleValues(event.target.value)
@@ -50,7 +51,7 @@ export default function Page() {
                             <input
                                 type="text" 
                                 id="summary"
-                                placeholder="Как ни подойдешь на кухню, все время нет печенек, я начинаю грустить и становлюсь злюкой."
+                                value="Как ни подойдешь на кухню, все время нет печенек, я начинаю грустить и становлюсь злюкой."
                                 className="h-24 w-full rounded-[7px] px-1 inline-block align-text-top text-ellipsis"
                                 onChange={(event) =>
                                     setSummaryValues(event.target.value)
@@ -58,14 +59,16 @@ export default function Page() {
                             />
                         </div> 
                         <div className="flex justify-center mt-4 px-36">
-                            <input
-                                type="submit"
-                                value="Добавить"
-                                className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                // onClick={(event) =>
-                                //     createCard(Number(projectId), values)
-                                // }
-                            />
+                            <Link
+                                    type="submit"
+                                    href="./../"
+                                    className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                    onClick={(event) =>
+                                        createCard(Number(projectId), values)
+                                    }
+                            >
+                                Добавить
+                            </Link>
                         </div>
                     </form>
                 </Grid>

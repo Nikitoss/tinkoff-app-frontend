@@ -47,7 +47,9 @@ export default function Page() {
                                 onClick={(event) =>
                                     createProject(values)
                                 }
-                            >Добавить</Link>
+                            >
+                                Добавить
+                            </Link>
                         </div>
                     </div>  
                 </Grid>
