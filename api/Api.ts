@@ -9,7 +9,16 @@
  * ---------------------------------------------------------------
  */
 
-import { CardRequest, CardResponse, ProjectRequest, ProjectResponse, VoteRequest, RegisterRequest, LoginRequest } from "./dataСontracts";
+import {
+  CardRequest,
+  CardResponse,
+  ProjectRequest,
+  ProjectResponse,
+  VoteRequest,
+  RegisterRequest,
+  LoginRequest,
+  Token,
+} from "./dataСontracts";
 
 const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 
@@ -22,12 +31,14 @@ const request = async <Response>({ path, method, body }: { path: string; method?
     }
 
     try {
+        const token =  localStorage.getItem('token')?.toString()
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
             headers: {
                 "Content-Type": "application/json",
-            }
+                "Authorization": token === undefined ? "" : token
+            },
         });
 
         try {
@@ -231,8 +242,8 @@ export const registerUser = (data: RegisterRequest) =>
  * @request POST:/api/v1/auth/login/
  */
 export const loginUser = (data: LoginRequest) =>
-    request<200>({
+    request<Token>({
         path: `/api/v1/auth/login`,
         method: "POST",
         body: data
-    });
+    }).then(x => localStorage.setItem('token', x.data.token));

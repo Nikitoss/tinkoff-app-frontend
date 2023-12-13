@@ -19,7 +19,7 @@ export default function Home() {
                         Здесь будет какой-нибудь красивый лендинг, но пока заглушка
                     </Typography>
                     <Link href="/login">Авторизация</Link>
-                    <Link href="/projects">К проектам</Link>
+                    {/*<Link href="/projects">К проектам</Link>*/}
                 </Grid>
             </Container>
         </main>
