@@ -31,17 +31,19 @@ const request = async <Response>({ path, method, body }: { path: string; method?
     }
 
     try {
-        const headers: RequestInit["headers"] = {
-          "Content-Type": "application/json",
-        };
-        const token = localStorage.getItem('token')?.toString();
-        if(token !== undefined) {
-            headers["Authorization"] = token;
-        }
+//        const headers: RequestInit["headers"] = {
+//          "Content-Type": "application/json",
+//        };
+//        const token = localStorage.getItem('token')?.toString();
+//        if(token !== undefined) {
+//            headers["Authorization"] = token;
+//        }
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
-            headers: headers,
+            headers: {
+                "Content-Type": "application/json"
+            },
         });
         response.headers
 
@@ -250,4 +252,4 @@ export const loginUser = (data: LoginRequest) =>
         path: `/api/v1/auth/login`,
         method: "POST",
         body: data
-    }).then(x => localStorage.setItem('token', x.data.token));
+    });
