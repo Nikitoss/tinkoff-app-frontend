@@ -31,15 +31,17 @@ const request = async <Response>({ path, method, body }: { path: string; method?
     }
 
     try {
-        const token =  localStorage.getItem('token')?.toString()
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": token === undefined ? "" : token
             },
         });
+        const token =  localStorage.getItem('token')?.toString()
+        if(token !== undefined) {
+            response.headers.append("Authorization", token)
+        }
 
         try {
             const data = await response.json();
