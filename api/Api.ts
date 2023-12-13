@@ -232,7 +232,7 @@ export const registerUser = (data: RegisterRequest) =>
  */
 export const loginUser = (data: LoginRequest) =>
     request<200>({
-        path: `/api/v1/auth/login/`,
+        path: `/api/v1/auth/login`,
         method: "POST",
         body: data
     });
