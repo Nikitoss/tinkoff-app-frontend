@@ -50,7 +50,7 @@ export default function Page() {
                             <div className="flex justify-center">
                                 <Link
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                    href="/project"
+                                    href="/projects"
                                     onClick={(event) =>
                                         loginUser(values)
                                     }
