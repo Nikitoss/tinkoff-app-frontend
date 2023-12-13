@@ -4,7 +4,7 @@ import Container from '@mui/material/Container'
 import { useState } from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
-import { registerUser } from '@/api/Api'
+import { loginUser } from '@/api/Api'
 
 export default function Page() {
     const [loginValues, setLoginValues] = useState("")
@@ -52,7 +52,7 @@ export default function Page() {
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
                                     href="./"
                                     onClick={(event) =>
-                                        registerUser(values)
+                                        loginUser(values)
                                     }
                                 >
                                     <span className="flex items-center">Войти</span>  

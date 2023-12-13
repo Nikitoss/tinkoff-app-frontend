@@ -14,7 +14,12 @@ export default function Page() {
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
 
-    type Status = "NEW" | "IN_WORK" | "ACCEPTED" | "DISMISS"
+    enum Status {
+        New = "NEW",
+        InWork = "IN_WORK",
+        Accepted = "ACCEPTED",
+        Dismiss = "DISMISS"
+    }
 
     const values = {
         title: titleValues,
