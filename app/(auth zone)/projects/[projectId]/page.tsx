@@ -3,8 +3,10 @@
 import { getAllCards, getProjectById, deleteCard } from '@/api/Api'
 import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
+import Date from '../../_components/Date'
+import Time from '../../_components/Time'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
@@ -26,10 +28,10 @@ const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { ti
             <div className="absolute top-2 text-lg">
                 {title}
             </div>
-            <div className="flex justify-center items-center space-x-10">
+            <div className="flex justify-center items-center space-x-8">
                 <div className="text-neutral-700">
-                    {createAt.toString().split(',')[2]}/{createAt.toString().split(',')[1]}/{createAt.toString().split(',')[0]}<br />
-                    {createAt.toString().split(',')[3]}:{createAt.toString().split(',')[4]}
+                    <Date dateString={createAt} /><br />
+                    <Time timeString={createAt} />
                 </div>               
                 <AccountCircleIcon sx={{ fontSize: 52 }} />
             </div>
@@ -42,8 +44,7 @@ const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { ti
                 </Link> */}
                 <Link href={`/projects/${projectId}/tasks/${taskId}/edit`} className="flex justify-center hover:text-neutral-500">
                     <EditIcon sx={{ fontSize: 26 }}/>
-                </Link>
-                
+                </Link>               
             </ul>
         </div>
     </Link>
@@ -109,9 +110,9 @@ export default function Page() {
                 <Link href={`/projects/${projectId}/edit`} className="hover:text-neutral-500">{project.title} <EditIcon sx={{ fontSize: 16 }}/></Link>
             </div>
 
-            <div className="mr-5 grid grid-cols-4 gap-5 mb-4">
-                <div className="">
-                    <div className={`${columnHat} space-x-2`}>                      
+            <div className="mr-5 grid grid-cols-4 gap-5 mb-4e">
+                <div className="h-screen pb-36">
+                    <div className={columnHat}>                      
                         <h1 className="font-bold">НОВЫЕ</h1>
                         <Link href={`${projectId}/tasks/create`}>
                             <div className="flex justify-center items-center">
@@ -120,6 +121,7 @@ export default function Page() {
                         </Link>                   
                     </div>
                     <div className={column}>
+                        
                         <Tasks projectId={projectId} />
                     </div>
                 </div>

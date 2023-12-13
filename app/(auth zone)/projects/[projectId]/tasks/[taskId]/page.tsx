@@ -66,6 +66,7 @@ export default function Page() {
                                     onClick={(event) => {
                                         voteForCards(Number(projectId), Number(taskId), {voteType: Vote.For})
                                     }}
+                                    onChange={() => getCardById(Number(projectId), Number(taskId))}
                                 >
                                     🔥
                                 </button>
