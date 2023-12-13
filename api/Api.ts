@@ -203,9 +203,8 @@ export const createProject = (data: ProjectRequest) =>
  */
 export const voteForCards = (projectId: number, cardId: number, data: VoteRequest) =>
     request<boolean>({
-        path: `/api/v1/projects/${projectId}/cards/${cardId}/vote`,
+        path: `/api/v1/projects/${projectId}/cards/${cardId}/vote?voteType=${data.voteType}`,
         method: "POST",
-        body: data
     });
 
 /**

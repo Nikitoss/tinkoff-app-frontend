@@ -12,7 +12,7 @@ export default function Page() {
 
     const values = {
         login: loginValues,
-        password: passwordValues,
+        password: passwordValues
     }
 
     return (

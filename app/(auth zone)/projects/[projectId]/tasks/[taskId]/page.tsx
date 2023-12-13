@@ -5,7 +5,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
 
 import { getCardById, voteForCards } from '@/api/Api'
-import { CardResponse } from '@/api/dataСontracts'
+import { CardResponse, Vote } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Container from '@mui/material/Container'
@@ -38,15 +38,6 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
-    type VoteType = "VOTE_FOR" | "VOTE_AGAINST"
-
-    const valueFor = {
-        voteType: "VOTE_FOR" as VoteType
-    }
-    const valueAgainst = {
-        voteType: "VOTE_AGAINST" as VoteType
-    }
-
     return (
         <main>
             <Container fixed>
@@ -73,7 +64,7 @@ export default function Page() {
                                 <button
                                     className="hover:opacity-75"
                                     onClick={(event) => {
-                                        voteForCards(Number(task.projectId), Number(task.id), valueFor)
+                                        voteForCards(Number(projectId), Number(taskId), {voteType: Vote.For})
                                     }}
                                 >
                                     🔥
@@ -82,7 +73,7 @@ export default function Page() {
                                 <button
                                     className="hover:opacity-75"
                                     onClick={(event) => {
-                                        voteForCards(Number(task.projectId), Number(task.id), valueAgainst)
+                                        voteForCards(Number(projectId), Number(taskId), {voteType: Vote.Against})
                                     }}
                                 >
                                     💩

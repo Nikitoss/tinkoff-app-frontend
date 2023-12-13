@@ -38,7 +38,7 @@ export default function Page() {
 
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
-    const [statusValues, setStatusValues] = useState({})
+    const [statusValues, setStatusValues] = useState("")
 
     enum Status {
         New = "NEW",
@@ -76,10 +76,10 @@ export default function Page() {
                                     setStatusValues(event.target.value)
                                 }
                             >
-                                <option value="NEW">NEW</option>
-                                <option value="IN_WORK">IN PROGRESS</option>
-                                <option value="ACCEPTED">ACCEPTED</option>
-                                <option value="DISMISS">REJECTED</option>
+                                <option value={Status.New}>NEW</option>
+                                <option value={Status.InWork}>IN PROGRESS</option>
+                                <option value={Status.Accepted}>ACCEPTED</option>
+                                <option value={Status.Dismiss}>REJECTED</option>
                             </select>
                         </div>
                         <div className="px-16">
@@ -116,7 +116,7 @@ export default function Page() {
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
                                 href=""
                                 onClick={(event) => {
-                                    updateCard(Number(task.projectId), Number(task.id), values)
+                                    updateCard(Number(projectId), Number(taskId), values)
                                 }}
                             >
                                 <span className="flex items-center">Изменить</span>  

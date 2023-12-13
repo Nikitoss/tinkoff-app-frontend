@@ -47,8 +47,13 @@ export interface CardResponse {
   status?: "NEW" | "IN_WORK" | "ACCEPTED" | "DISMISS";
 }
 
+export enum Vote {
+  For = "VOTE_FOR",
+  Against = "VOTE_AGAINST"
+}
+
 export interface VoteRequest {
-  voteType?: "VOTE_FOR" | "VOTE_AGAINST";
+  voteType?: Vote;
 }
 
 export interface RegisterRequest {
