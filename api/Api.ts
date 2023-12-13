@@ -31,17 +31,19 @@ const request = async <Response>({ path, method, body }: { path: string; method?
     }
 
     try {
+        const headers: RequestInit["headers"] = {
+          "Content-Type": "application/json",
+        };
+        const token = localStorage.getItem('token')?.toString();
+        if(token !== undefined) {
+            headers["Authorization"] = token;
+        }
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: headers,
         });
-        const token =  localStorage.getItem('token')?.toString()
-        if(token !== undefined) {
-            response.headers.append("Authorization", token)
-        }
+        response.headers
 
         try {
             const data = await response.json();
