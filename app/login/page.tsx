@@ -1,9 +1,9 @@
 'use client'
 
 import Container from '@mui/material/Container'
-import { useState } from 'react'
+import { redirect } from 'next/navigation'
+import { useState, useCallback } from 'react'
 import { Grid } from '@mui/material'
-import Link from 'next/link'
 import { loginUser } from '@/api/Api'
 
 export default function Page() {
@@ -15,6 +15,24 @@ export default function Page() {
         password: passwordValues
     }
 
+    const [status, setStatus] = useState('loading')
+
+    const handleLoginUser = useCallback(() => {
+        loginUser(values)
+            .then(({ data: error }) => {
+                if (error) {
+                    console.error(error)
+                    setStatus('error')
+                    return
+                } else {
+                    redirect("/projects")
+                }
+            }).catch((error) => {
+                console.error(error)
+                setStatus('error')
+            })
+    }, [])
+    
     return (
         <main>
             <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
@@ -48,15 +66,14 @@ export default function Page() {
                                 }}
                             />
                             <div className="flex justify-center">
-                                <Link
+                                <button
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                    href="/projects"
-                                    onClick={(event) =>
-                                        loginUser(values)
-                                    }
+                                    onClick={(event) => {
+                                        handleLoginUser()
+                                    }}
                                 >
                                     <span className="flex items-center">Войти</span>  
-                                </Link>  
+                                </button>  
                             </div>                                         
                         </form>
                         

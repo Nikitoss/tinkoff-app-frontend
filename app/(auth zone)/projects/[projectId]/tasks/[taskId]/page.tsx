@@ -76,6 +76,9 @@ export default function Page() {
                                     onClick={(event) => {
                                         voteForCards(Number(projectId), Number(taskId), {voteType: Vote.Against})
                                     }}
+                                    // onChange={(event) =>
+                                    //     setTask(event.target.value)
+                                    // }
                                 >
                                     💩
                                 </button>
