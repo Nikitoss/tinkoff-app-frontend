@@ -10,54 +10,52 @@
  */
 
 import {
-  CardRequest,
-  CardResponse,
-  ProjectRequest,
-  ProjectResponse,
-  VoteRequest,
-  RegisterRequest,
-  LoginRequest,
-  Token,
+    CardRequest,
+    CardResponse,
+    ProjectRequest,
+    ProjectResponse,
+    VoteRequest,
+    RegisterRequest,
+    LoginRequest,
+    Token,
 } from "./dataСontracts";
 
 const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
-const request = async <Response>({ path, method, body }: { path: string; method?: Method; body?: unknown; }) => {
+const request = async <Response>({ path, method, body, useToken = true }: { path: string; method?: Method; body?: unknown; useToken?: boolean }) => {
     const result = {
         data: null as unknown as Response,
         error: null as unknown
     }
 
-    try {
-        const headers: RequestInit["headers"] = {
-            "Content-Type": "application/json",
-        };
+    const headers: RequestInit["headers"] = {
+        "Content-Type": "application/json",
+    };
+
+    if (useToken) {
         const token = localStorage.getItem('token')?.toString();
-        if(token !== undefined) {
+        if (token !== undefined) {
             headers["Authorization"] = token;
         }
+    }
+
+    try {
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
+            // credentials: "include", // Можно использовать, если клиент и серевр будут на одном домене
             headers
         });
-        response.headers
-
-        try {
-            const data = await response.json();
-            if (response.ok) {
-                result.data = data;
-            } else {
-                result.error = data;
-            }
-            return result;
-
-        } catch (error) {
-            result.error = error;
-            return result;
+        const data = await response.json();
+        if (response.ok) {
+            result.data = data;
+        } else {
+            result.error = data;
         }
+        return result;
+
     } catch (error) {
         result.error = error;
         return result;
@@ -249,10 +247,11 @@ export const loginUser = (data: LoginRequest) =>
     request<Token>({
         path: `/api/v1/auth/login`,
         method: "POST",
-        body: data
+        body: data,
+        useToken: false
     }).then(x => {
-        if (x.data.token !== null && x.error === null) {
-            localStorage.setItem('token', x.data.token)  
+        if (x.data?.token && x.error === null) {
+            localStorage.setItem('token', x.data.token)
         }
         return x
     });
