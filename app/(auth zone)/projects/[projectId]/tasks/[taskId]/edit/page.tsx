@@ -77,9 +77,9 @@ export default function Page() {
                                 }
                             >
                                 <option value={Status.New}>NEW</option>
-                                <option value={Status.InWork}>IN PROGRESS</option>
+                                <option value={Status.InWork}>IN WORK</option>
                                 <option value={Status.Accepted}>ACCEPTED</option>
-                                <option value={Status.Dismiss}>REJECTED</option>
+                                <option value={Status.Dismiss}>DISMISS</option>
                             </select>
                         </div>
                         <div className="px-16">

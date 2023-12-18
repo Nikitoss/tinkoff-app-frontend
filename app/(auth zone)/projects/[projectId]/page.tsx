@@ -3,7 +3,7 @@
 import { getAllCards, getProjectById, deleteCard } from '@/api/Api'
 import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
 import Link from 'next/link'
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Date from '../../_components/Date'
 import Time from '../../_components/Time'
@@ -21,6 +21,13 @@ const column = "relative w-full h-full bg-neutral-200 rounded-bl-lg rounded-br-l
 const card = "w-full aspect-video relative flex justify-center items-center text-center px-4 rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-neutral-300 hover:bg-neutral-400`
 const skeletonCard = `${card} bg-neutral-300 animate-pulse`
+
+enum Status {
+    New = "NEW",
+    InWork = "IN WORK",
+    Accepted = "ACCEPTED",
+    Dismiss = "DISMISS"
+}
 
 const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { title: string, upVote: number, downVote: number, projectId: number, taskId: number, createAt: string }) => (
     <Link className="w-full" key={taskId} href={`/projects/${projectId}/tasks/${taskId}`}>
@@ -56,7 +63,7 @@ const SkeletonTasks = ({ count = 1 }) => {
     return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
 }
 
-const Tasks = ({ projectId }: { projectId: number }) => {
+const Tasks = ({ projectId, taskStatus }: { projectId: number, taskStatus: string }) => {
     const [status, setStatus] = useState('loading')
     const [tasks, setTasks] = useState([] as CardResponse[])
 
@@ -81,13 +88,39 @@ const Tasks = ({ projectId }: { projectId: number }) => {
 
     if (status === 'loading') return <SkeletonTasks />
 
-    return (
-        <>
-            {tasks.map(({ id, title, upVote, downVote, createAt }) => (
-                <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} createAt={createAt!} key={id} />
-            ))}
-        </>
-    )
+    if (taskStatus === Status.InWork) {
+        return (
+            <>
+                {tasks.filter(tasks => tasks.status === "IN_WORK").map(({ id, title, upVote, downVote, createAt }) => (
+                    <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} createAt={createAt!} key={id} />
+                ))}
+            </>
+        )
+    } else if (taskStatus === Status.Accepted) {
+        return (
+            <>
+                {tasks.filter(tasks => tasks.status === "ACCEPTED").map(({ id, title, upVote, downVote, createAt }) => (
+                    <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} createAt={createAt!} key={id} />
+                ))}
+            </>
+        )
+    } else if (taskStatus === Status.Dismiss) {
+        return (
+            <>
+                {tasks.filter(tasks => tasks.status === "DISMISS").map(({ id, title, upVote, downVote, createAt }) => (
+                    <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} createAt={createAt!} key={id} />
+                ))}
+            </>
+        )
+    } else {
+        return (
+            <>
+                {tasks.filter(tasks => tasks.status === "NEW").map(({ id, title, upVote, downVote, createAt }) => (
+                    <TaskCard projectId={projectId} taskId={id!} title={title!} upVote={upVote!} downVote={downVote!} createAt={createAt!} key={id} />
+                ))}
+            </>
+        )
+    }
 }
 
 export default function Page() {
@@ -113,7 +146,7 @@ export default function Page() {
             <div className="mr-5 grid grid-cols-4 gap-5 mb-4e">
                 <div className="h-screen pb-36">
                     <div className={columnHat}>                      
-                        <h1 className="font-bold">НОВЫЕ</h1>
+                        <h1 className="font-bold">NEW</h1>
                         <Link href={`${projectId}/tasks/create`}>
                             <div className="flex justify-center items-center">
                                 <AddIcon sx={{ fontSize: 30 }} />
@@ -121,30 +154,35 @@ export default function Page() {
                         </Link>                   
                     </div>
                     <div className={column}>
-                        
-                        <Tasks projectId={projectId} />
+                        <Tasks projectId={projectId} taskStatus={Status.New} />
                     </div>
                 </div>
 
                 <div className="h-screen pb-36">
                     <div className={columnHat}>
-                        <h1 className="font-bold">В РАБОТЕ</h1>
+                        <h1 className="font-bold">IN WORK</h1>
                     </div>
-                    <div className={column}></div>
+                    <div className={column}>
+                        <Tasks projectId={projectId} taskStatus={Status.InWork} />
+                    </div>
                 </div>
 
                 <div className="h-screen pb-36">
                     <div className={columnHat}>
-                        <h1 className="font-bold">ПРИНЯТЫЕ</h1>
+                        <h1 className="font-bold">ACCEPTED</h1>
                     </div>
-                    <div className={column}></div>
+                    <div className={column}>
+                        <Tasks projectId={projectId} taskStatus={Status.Accepted} />
+                    </div>
                 </div>
 
                 <div className="h-screen pb-36">
                     <div className={columnHat}>
-                        <h1 className="font-bold">ОТКЛОНЁННЫЕ</h1>
+                        <h1 className="font-bold">DISMISS</h1>
                     </div>
-                    <div className={column}></div>
+                    <div className={column}>
+                        <Tasks projectId={projectId} taskStatus={Status.Dismiss} />
+                    </div>
                 </div>
             </div>
         </main>
