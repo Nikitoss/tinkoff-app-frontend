@@ -37,7 +37,7 @@ const request = async <Response>({ path, method, body, useToken = true }: { path
     if (useToken) {
         const token = localStorage.getItem('token')?.toString();
         if (token !== undefined) {
-            headers["Authorization"] = token;
+            headers["Authorization"] = `Bearer ${token}`;
         }
     }
 
