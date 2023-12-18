@@ -2,8 +2,8 @@
 
 import Container from '@mui/material/Container'
 import { redirect } from 'next/navigation'
-import { useState, useCallback } from 'react'
-import { Grid } from '@mui/material'
+import { useCallback, useState } from 'react'
+import { Link, Grid } from '@mui/material'
 import { loginUser } from '@/api/Api'
 
 export default function Page() {
@@ -17,22 +17,6 @@ export default function Page() {
 
     const [status, setStatus] = useState('loading')
 
-    const handleLoginUser = useCallback(() => {
-        loginUser(values)
-            .then(({ data: error }) => {
-                if (error) {
-                    console.error(error)
-                    setStatus('error')
-                    return
-                } else {
-                    redirect("/projects")
-                }
-            }).catch((error) => {
-                console.error(error)
-                setStatus('error')
-            })
-    }, [])
-    
     return (
         <main>
             <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
@@ -66,14 +50,22 @@ export default function Page() {
                                 }}
                             />
                             <div className="flex justify-center">
-                                <button
+                                <a
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
                                     onClick={(event) => {
-                                        handleLoginUser()
+                                        loginUser(values)
+                                        .then(({ data: error }) => {
+                                            if (error) {
+                                                console.error(error)
+                                                setStatus('error')
+                                            } else {
+                                                redirect('/projects')
+                                            }
+                                        })
                                     }}
                                 >
                                     <span className="flex items-center">Войти</span>  
-                                </button>  
+                                </a>  
                             </div>                                         
                         </form>
                         

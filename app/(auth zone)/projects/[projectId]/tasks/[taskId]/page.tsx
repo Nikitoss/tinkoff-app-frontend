@@ -66,19 +66,21 @@ export default function Page() {
                                     onClick={(event) => {
                                         voteForCards(Number(projectId), Number(taskId), {voteType: Vote.For})
                                     }}
-                                    onChange={() => getCardById(Number(projectId), Number(taskId))}
                                 >
                                     🔥
                                 </button>
                                 &nbsp;| {task.downVote}&nbsp;
                                 <button
                                     className="hover:opacity-75"
+                                    // onChange={(event) =>
+                                    //     getCardById(Number(projectId), Number(taskId))
+                                    //         .then(({ data: tasks, error }) => {
+                                    //             setTask(tasks)
+                                    //         })
+                                    // }
                                     onClick={(event) => {
                                         voteForCards(Number(projectId), Number(taskId), {voteType: Vote.Against})
-                                    }}
-                                    // onChange={(event) =>
-                                    //     setTask(event.target.value)
-                                    // }
+                                    }}                                   
                                 >
                                     💩
                                 </button>
