@@ -11,8 +11,10 @@ import Link from 'next/link'
 export default function Page() {
     const params = useParams()
     const projectId = params.projectId
+
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
+    const [hasError, setError] = useState(false)
 
     enum Status {
         New = "NEW",
@@ -47,12 +49,15 @@ export default function Page() {
                                 placeholder="Отсутствие печенек"
                                 minLength={2}
                                 maxLength={30}
-                                className="w-full flex justify-center rounded-[7px] px-1"
+                                className={`w-full flex justify-center rounded-[7px] px-1 ${hasError ? 'bg-red-100' : 'bg-white'}`}
                                 onChange={(event) =>
                                     setTitleValues(event.target.value)
                                 }
                             />
                         </div>
+                        {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}
                         <div className="px-16">
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
                             <input
@@ -61,12 +66,15 @@ export default function Page() {
                                 required
                                 minLength={2}
                                 placeholder="Как ни подойдешь на кухню, все время нет печенек, я начинаю грустить и становлюсь злюкой."
-                                className="h-24 w-full rounded-[7px] px-1 inline-block align-text-top text-ellipsis"
+                                className={`h-24 w-full rounded-[7px] px-1 inline-block align-text-top text-ellipsis ${hasError ? 'bg-red-100' : 'bg-white'}`}
                                 onChange={(event) =>
                                     setSummaryValues(event.target.value)
                                 }
                             />
-                        </div> 
+                        </div>
+                        {hasError ? (
+                                <div className='text-red-500'>Описание слишком короткое</div>
+                            ) : null}
                         <div className="flex justify-center mt-4 px-36">
                             <Link
                                 type="submit"

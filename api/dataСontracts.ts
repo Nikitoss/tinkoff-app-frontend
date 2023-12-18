@@ -61,11 +61,12 @@ export interface RegisterRequest {
   password?: string;
 }
 
+export interface Token {
+  token: string;
+}
+
 export interface LoginRequest {
   login?: string;
   password?: string;
-}
-
-export interface Token {
-  token: string;
+  token?: string
 }

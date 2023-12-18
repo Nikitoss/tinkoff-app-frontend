@@ -1,36 +1,44 @@
 'use client'
 
+import { Token } from '@/api/dataСontracts'
+import { loginUser } from '@/api/Api'
+
 import Container from '@mui/material/Container'
 import { MouseEventHandler, useState } from 'react'
 import { Grid } from '@mui/material'
-import { loginUser } from '@/api/Api'
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
 
     const [loginValues, setLoginValues] = useState("")
     const [passwordValues, setPasswordValues] = useState("")
+    const [tokenValues, setTokenValues] = useState("")
     const [hasError, setError] = useState(false)
 
     const router = useRouter()
 
-    const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
-        // Так как это кнопка в форме, она считает, что это сабмит и пытается постом отправить значения на текущую страницу
-        // Поэтому нам надо предотвратить дефолтное поведение, мы сами знаем, чего хотим   
+    const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => { 
         event.preventDefault()
 
-        const values = {
+        const firstValues = {
             login: loginValues,
-            password: passwordValues
+            password: passwordValues,
+            token: undefined
         }
 
-        loginUser(values).then(({ error }) => {
-            if (error) {
-                setError(true)
-            } else {
-                setError(false)
-                router.push('/projects')
-            }
+        loginUser(firstValues).then(({ data: token }) => {
+            loginUser(({
+                login: loginValues,
+                password: passwordValues,
+                token: token.token
+            })).then(({ error }) => {
+                if (error) {
+                    setError(true)
+                } else {
+                    setError(false)
+                    router.push('/projects')
+                }
+            })    
         })
     }
 
@@ -69,7 +77,7 @@ export default function Page() {
                                 }}
                             />
                             {hasError ? (
-                                <div className='text-red-500'>Ошибка в логине-пароле</div>
+                                <div className='text-red-500'>Ошибка в логине или пароле</div>
                             ) : null}
 
                             <div className="flex justify-center">
