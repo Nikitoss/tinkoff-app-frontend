@@ -1,25 +1,42 @@
 'use client'
 
 import Container from '@mui/material/Container'
-import { redirect } from 'next/navigation'
-import { useCallback, useState } from 'react'
-import { Link, Grid } from '@mui/material'
+import { MouseEventHandler, useState } from 'react'
+import { Grid } from '@mui/material'
 import { loginUser } from '@/api/Api'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
+
     const [loginValues, setLoginValues] = useState("")
     const [passwordValues, setPasswordValues] = useState("")
+    const [hasError, setError] = useState(false)
 
-    const values = {
-        login: loginValues,
-        password: passwordValues
+    const router = useRouter()
+
+    const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
+        // Так как это кнопка в форме, она считает, что это сабмит и пытается постом отправить значения на текущую страницу
+        // Поэтому нам надо предотвратить дефолтное поведение, мы сами знаем, чего хотим   
+        event.preventDefault()
+
+        const values = {
+            login: loginValues,
+            password: passwordValues
+        }
+
+        loginUser(values).then(({ error }) => {
+            if (error) {
+                setError(true)
+            } else {
+                setError(false)
+                router.push('/projects')
+            }
+        })
     }
 
-    const [status, setStatus] = useState('loading')
-
     return (
-        <main>
-            <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" /> 
+        <>
+            <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" />
             <Container fixed>
                 <Grid
                     container
@@ -35,50 +52,46 @@ export default function Page() {
                                 name="login"
                                 type="text"
                                 placeholder="Логин"
-                                className="w-full flex justify-center rounded-[7px] p-2"
+                                className={`w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
                                 onChange={(event) => {
                                     setLoginValues(event.target.value)
+                                    setError(false)
                                 }}
                             />
                             <input
                                 name="password"
                                 type="password"
                                 placeholder="Пароль (не 123456!)"
-                                className="peer w-full flex justify-center rounded-[7px] p-2"
+                                className={`peer w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
                                 onChange={(event) => {
                                     setPasswordValues(event.target.value)
+                                    setError(false)
                                 }}
                             />
+                            {hasError ? (
+                                <div className='text-red-500'>Ошибка в логине-пароле</div>
+                            ) : null}
+
                             <div className="flex justify-center">
-                                <a
+                                <button
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                    onClick={(event) => {
-                                        loginUser(values)
-                                        .then(({ data: error }) => {
-                                            if (error) {
-                                                console.error(error)
-                                                setStatus('error')
-                                            } else {
-                                                redirect('/projects')
-                                            }
-                                        })
-                                    }}
+                                    onClick={handleSubmit}
                                 >
-                                    <span className="flex items-center">Войти</span>  
-                                </a>  
-                            </div>                                         
+                                    <span className="flex items-center">Войти</span>
+                                </button>
+                            </div>
                         </form>
-                        
+
                         <div className="py-2 items-baseline text-neutral-600 text-center">
-                            <p className="text-xs">Приступая к работе, вы соглашаетесь с нашими&nbsp; 
+                            <p className="text-xs">Приступая к работе, вы соглашаетесь с нашими&nbsp;
                                 <a href="/privacy-policy/" className="underline">Условиями использования</a>
                                 и подтверждаете, что ознакомились с нашим&nbsp;
                                 <a href="/privacy-policy/" className="underline">Положением о конфиденциальности и файлах cookie</a>.
                             </p>
-                        </div> 
+                        </div>
                     </div>
                 </Grid>
-            </Container>        
-        </main>
+            </Container>
+        </>
     )
 }
