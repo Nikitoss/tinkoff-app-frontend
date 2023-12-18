@@ -56,8 +56,8 @@ export default function Page() {
                             />
                         </div>
                         {hasError ? (
-                                <div className='text-red-500'>Название слишком короткое</div>
-                            ) : null}
+                            <div className='text-red-500'>Название слишком короткое</div>
+                        ) : null}
                         <div className="px-16">
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
                             <input
@@ -73,8 +73,8 @@ export default function Page() {
                             />
                         </div>
                         {hasError ? (
-                                <div className='text-red-500'>Описание слишком короткое</div>
-                            ) : null}
+                            <div className='text-red-500'>Описание слишком короткое</div>
+                        ) : null}
                         <div className="flex justify-center mt-4 px-36">
                             <Link
                                 type="submit"
