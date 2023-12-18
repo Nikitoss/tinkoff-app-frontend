@@ -47,7 +47,6 @@ export default function Page() {
                 >
                     <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0 mb-12">
                         <span className="font-bold text-2xl flex justify-center mb-4">Вход в систему</span>
-                        {hasError ? "error" : " no error"}
                         <form className="px-16 space-y-2">
                             <input
                                 name="login"
@@ -69,6 +68,10 @@ export default function Page() {
                                     setError(false)
                                 }}
                             />
+                            {hasError ? (
+                                <div className='text-red-500'>Ошибка в логине-пароле</div>
+                            ) : null}
+
                             <div className="flex justify-center">
                                 <button
                                     className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"

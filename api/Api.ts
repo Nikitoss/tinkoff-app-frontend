@@ -45,7 +45,7 @@ const request = async <Response>({ path, method, body, useToken = true }: { path
         const response = await fetch(`${baseUrl}${path}`, {
             method,
             body: body !== null ? JSON.stringify(body) : body,
-            // credentials: "include", // Можно использовать, если клиент и серевр будут на одном домене
+            // credentials: "include", // Можно использовать, если клиент и сервер будут на одном домене
             headers
         });
         const data = await response.json();
