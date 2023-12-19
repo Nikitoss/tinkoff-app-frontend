@@ -26,19 +26,13 @@ export default function Page() {
             token: undefined
         }
 
-        loginUser(firstValues).then(({ data: token }) => {
-            loginUser(({
-                login: loginValues,
-                password: passwordValues,
-                token: token.token
-            })).then(({ error }) => {
-                if (error) {
-                    setError(true)
-                } else {
-                    setError(false)
-                    router.push('/projects')
-                }
-            })    
+        loginUser(firstValues).then(({ error }) => {
+            if (error) {
+                setError(true)
+            } else {
+                setError(false)
+                router.push('/projects')
+            }
         })
     }
 
