@@ -79,10 +79,11 @@ export default function Page() {
                             <Link
                                 type="submit"
                                 href="./../"
-                                className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
-                                onClick={(event) =>
+                                className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
+                                onClick={(event) => {
+                                    event.preventDefault()
                                     createCard(Number(projectId), values)
-                                }
+                                }}
                             >
                                 Добавить
                             </Link>

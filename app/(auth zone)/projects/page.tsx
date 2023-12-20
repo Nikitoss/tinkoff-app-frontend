@@ -28,15 +28,14 @@ const ProjectCard = ({ title, id }: { title: string, id: number }) => (
             <div className="flex justify-center text-center font-bold px-8 text-ellipsis overflow-hidden">
                 {title}
             </div>
-            
-            <ul className="absolute top-2 right-2 space-y-1.5 opacity-0 ease-out duration-100 hover:opacity-100">
-                {/* <Link href="" className="flex justify-center hover:text-neutral-500" onClick={(event) => deleteProject(id)}>
+            {/* <ul className="absolute top-2 right-2 space-y-1.5 opacity-0 ease-out duration-100 hover:opacity-100">
+                <Link href="" className="flex justify-center hover:text-neutral-500" onClick={(event) => deleteProject(id)}>
                     <DeleteIcon sx={{ fontSize: 24 }}/>
-                </Link> */}
+                </Link>
                 <Link href={`/projects/${id}/edit`}>
                     <EditIcon sx={{ fontSize: 26 }}/>
                 </Link>              
-            </ul>
+            </ul> */}
         </div>       
     </Link>
 )

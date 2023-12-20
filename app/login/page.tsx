@@ -38,7 +38,7 @@ export default function Page() {
 
     return (
         <>
-            <img className="md:fixed absolute h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" />
+            <img className="md:fixed absolute m-auto h-[58rem] -mt-40 pl-[54rem] -z-10" src="https://brosaem.online/wp-content/uploads/2019/08/D09AD0B0D0BBD18CD18FD0BD.jpg" />
             <Container fixed>
                 <Grid
                     container
@@ -76,7 +76,7 @@ export default function Page() {
 
                             <div className="flex justify-center">
                                 <button
-                                    className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                    className="flex items-center h-12 px-16 border rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
                                     onClick={handleSubmit}
                                 >
                                     <span className="flex items-center">Войти</span>

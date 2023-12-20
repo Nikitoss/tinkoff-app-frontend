@@ -113,9 +113,10 @@ export default function Page() {
                         </div> 
                         <div className="flex justify-center mt-4 px-36">
                             <Link
-                                className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:shadow hover:bg-gray-200 transition duration-300"
+                                className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
                                 href="./../../"
                                 onClick={(event) => {
+                                    event.preventDefault()
                                     updateCard(Number(projectId), Number(taskId), values)
                                 }}
                             >

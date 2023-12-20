@@ -21,6 +21,9 @@ export default function Page() {
     const [status, setStatus] = useState('loading')
     const [task, setTask] = useState({} as CardResponse)
 
+    const [upVote, setUpVote] = useState(() => task.upVote || 0)
+    const [downVote, setDownVote] = useState(() => task.downVote || 0)
+
     useEffect(() => {
         getCardById(Number(projectId), Number(taskId))
             .then(({ data: tasks, error }) => {
@@ -36,8 +39,8 @@ export default function Page() {
                 console.error(error)
                 setStatus('error')
             })
-    }, [projectId, taskId])
-
+    }, [projectId, taskId, upVote, downVote])
+    
     return (
         <main>
             <Container fixed>
@@ -63,24 +66,24 @@ export default function Page() {
                             <h1>{task.upVote}&nbsp;
                                 <button
                                     className="hover:opacity-75"
-                                    onClick={(event) => {
-                                        voteForCards(Number(projectId), Number(taskId), {voteType: Vote.For})
-                                    }}
+                                    onClick={() =>
+                                        voteForCards(Number(projectId), Number(taskId), { voteType: Vote.For })
+                                            .then(() => {
+                                                setUpVote(upVote => upVote + 1)
+                                        })
+                                    }
                                 >
                                     🔥
                                 </button>
                                 &nbsp;| {task.downVote}&nbsp;
                                 <button
                                     className="hover:opacity-75"
-                                    // onChange={(event) =>
-                                    //     getCardById(Number(projectId), Number(taskId))
-                                    //         .then(({ data: tasks, error }) => {
-                                    //             setTask(tasks)
-                                    //         })
-                                    // }
-                                    onClick={(event) => {
-                                        voteForCards(Number(projectId), Number(taskId), {voteType: Vote.Against})
-                                    }}                                   
+                                    onClick={() =>
+                                        voteForCards(Number(projectId), Number(taskId), { voteType: Vote.Against })
+                                            .then(() => {
+                                                setDownVote(downVote => downVote + 1)
+                                            })
+                                    }
                                 >
                                     💩
                                 </button>

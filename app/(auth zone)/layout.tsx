@@ -11,7 +11,7 @@ export default function AuthLayout({
     return (
         <>
             <NavBar />
-            <main className="relative ml-24">
+            <main className="overflow-hidden relative ml-24">
                 {children}
             </main>
         </>
