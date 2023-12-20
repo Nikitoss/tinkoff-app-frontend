@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
 import { getProjectById, updateProject } from '@/api/Api'
-import { ProjectRequest, ProjectResponse } from '@/api/dataСontracts'
+import { ProjectResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
@@ -32,13 +32,13 @@ export default function Page() {
             })
     }, [projectId])
 
-    if (status === 'error') return null
-
     const [titleValues, setTitleValues] = useState("")
 
     const values = {
         title: titleValues
     }
+
+    if (status === 'error') return null
 
     return (
         <main>

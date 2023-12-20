@@ -10,7 +10,7 @@ import { Grid } from '@mui/material'
 import Link from 'next/link'
 
 export default function Page() {
-    const { projectId, taskId } = useParams();
+    const { projectId, taskId } = useParams()
     const [status, setStatus] = useState('loading')
     const [task, setTask] = useState({} as CardResponse)
 
@@ -31,8 +31,6 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
-    if (status === 'error') return null
-
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
     const [statusValues, setStatusValues] = useState("")
@@ -49,6 +47,8 @@ export default function Page() {
         summary: summaryValues,
         status: statusValues as Status
     }
+
+    if (status === 'error') return null
 
     return (
         <main>
