@@ -40,7 +40,7 @@ export default function Page() {
                 setStatus('error')
             })
     }, [projectId, taskId, upVote, downVote])
-    
+
     return (
         <main>
             <Container fixed>
@@ -70,7 +70,7 @@ export default function Page() {
                                         voteForCards(Number(projectId), Number(taskId), { voteType: Vote.For })
                                             .then(() => {
                                                 setUpVote(upVote => upVote + 1)
-                                        })
+                                            })
                                     }
                                 >
                                     🔥
