@@ -1,6 +1,6 @@
 'use client'
 
-import { getAllCards, getProjectById, deleteCard } from '@/api/Api'
+import { getAllCards, getProjectById } from '@/api/Api'
 import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'

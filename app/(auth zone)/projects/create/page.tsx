@@ -4,7 +4,6 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import { createProject } from '@/api/Api'
-import { ProjectRequest } from '@/api/dataСontracts'
 import { useState } from 'react'
 import Link from 'next/link'
 
@@ -60,14 +59,4 @@ export default function Page() {
             </Container>
         </main>
     )
-}
-
-async function getData() {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/`)
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
 }

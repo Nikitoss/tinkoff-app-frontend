@@ -1,6 +1,5 @@
 'use client'
 
-import { Token } from '@/api/dataСontracts'
 import { loginUser } from '@/api/Api'
 
 import Container from '@mui/material/Container'
@@ -12,7 +11,6 @@ export default function Page() {
 
     const [loginValues, setLoginValues] = useState("")
     const [passwordValues, setPasswordValues] = useState("")
-    const [tokenValues, setTokenValues] = useState("")
     const [hasError, setError] = useState(false)
 
     const router = useRouter()

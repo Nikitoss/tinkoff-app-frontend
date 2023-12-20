@@ -1,13 +1,13 @@
 'use client'
 
-import { getAllProjects, deleteProject } from '@/api/Api'
+import { getAllProjects } from '@/api/Api'
 import { ProjectResponse } from '@/api/dataСontracts'
 
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
+// import EditIcon from '@mui/icons-material/Edit'
 
 const card = "w-full aspect-video relative flex justify-center items-center text-center rounded-lg ease-out duration-300 hover:shadow"
 const grayCard = `${card} bg-gray-300 hover:bg-gray-400`

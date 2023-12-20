@@ -10,12 +10,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
 export default function Page() {
-    const params = useParams();
+    const params = useParams()
+    const projectId = params.projectId
     const [status, setStatus] = useState('loading')
     const [project, setProject] = useState({} as ProjectResponse)
 
     useEffect(() => {
-        getProjectById(Number(params.projectId))
+        getProjectById(Number(projectId))
             .then(({ data: projectId, error }) => {
                 if (error) {
                     console.error(error)
@@ -29,7 +30,9 @@ export default function Page() {
                 console.error(error)
                 setStatus('error')
             })
-    }, [])
+    }, [projectId])
+
+    if (status === 'error') return null
 
     const [titleValues, setTitleValues] = useState("")
 
@@ -77,14 +80,4 @@ export default function Page() {
             </Container>
         </main>
     )
-}
-
-async function getData() {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/`)
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
 }

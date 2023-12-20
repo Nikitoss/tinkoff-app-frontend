@@ -94,13 +94,3 @@ export default function Page() {
         </main>
     )
 }
-
-async function getData(projectId: number) {
-    const res = await fetch(`${process.env.SERVER_URL}/api/v1/projects/${projectId}/cards`)
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-}

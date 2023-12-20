@@ -8,11 +8,6 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
-import { stat } from 'fs'
-
-const card = "w-full inset-x-0 aspect-video px-4 rounded-lg ease-out duration-300 hover:shadow"
-const grayCard = `${card} bg-neutral-300 hover:bg-gray-400`
-const skeletonCard = `${card} bg-neutral-300 animate-pulse`
 
 export default function Page() {
     const { projectId, taskId } = useParams();
