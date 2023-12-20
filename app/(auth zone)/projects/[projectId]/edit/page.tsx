@@ -36,6 +36,10 @@ export default function Page() {
 
     const [titleValues, setTitleValues] = useState("")
 
+    const values = {
+        title: titleValues
+    }
+
     return (
         <main>
             <Container fixed>
@@ -69,7 +73,7 @@ export default function Page() {
                                 href="./"
                                 onClick={(event) => {
                                     event.preventDefault()
-                                    updateProject(Number(project.id), titleValues as ProjectRequest)
+                                    updateProject(Number(project.id), values)
                                 }}
                             >
                                 <span className="flex items-center">Изменить</span>

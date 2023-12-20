@@ -31,6 +31,8 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
+    if (status === 'error') return null
+
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
     const [statusValues, setStatusValues] = useState("")

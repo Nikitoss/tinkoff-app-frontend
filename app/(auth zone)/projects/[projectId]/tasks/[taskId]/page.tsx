@@ -1,8 +1,6 @@
 'use client'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbDownIcon from '@mui/icons-material/ThumbDown'
 
 import { getCardById, voteForCards } from '@/api/Api'
 import { CardResponse, Vote } from '@/api/dataСontracts'
@@ -13,7 +11,7 @@ import * as React from 'react'
 import { Grid } from '@mui/material'
 
 export default function Page() {
-    const { projectId, taskId } = useParams();
+    const { projectId, taskId } = useParams()
     const [status, setStatus] = useState('loading')
     const [task, setTask] = useState({} as CardResponse)
 
@@ -36,6 +34,8 @@ export default function Page() {
                 setStatus('error')
             })
     }, [projectId, taskId, upVote, downVote])
+
+    if (status === 'error') return null
 
     return (
         <main>
