@@ -71,8 +71,7 @@ export default function Page() {
                             <Link
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
                                 href="./"
-                                onClick={(event) => {
-                                    event.preventDefault()
+                                onClick={() => {
                                     updateProject(Number(project.id), values)
                                 }}
                             >

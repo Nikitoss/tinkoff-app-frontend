@@ -3,6 +3,7 @@
 import { getAllCards, getProjectById } from '@/api/Api'
 import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
 import Link from 'next/link'
+
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Date from '../../_components/Date'
@@ -121,7 +122,7 @@ const Tasks = ({ projectId, taskStatus }: { projectId: number, taskStatus: strin
     }
 }
 
-export default function Page() {
+export default function Page() { 
     const params = useParams()
     const [project, setProjects] = useState([] as ProjectResponse)
     const projectId = Number(params.projectId)
@@ -134,13 +135,13 @@ export default function Page() {
     }, [projectId])
 
     return (
-        <main className="overflow-hidden">
+        <main>
             <div className="py-4">
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
                 <Link href={`/projects/${projectId}/edit`} className="hover:text-neutral-500">{project.title} <EditIcon sx={{ fontSize: 16 }}/></Link>
             </div>
-
+            
             <div className="mr-5 grid grid-cols-4 gap-5">
                 <div className="h-full pb-4">
                     <div className={columnHat}>                      
