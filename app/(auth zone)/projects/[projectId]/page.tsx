@@ -12,6 +12,7 @@ import Time from '../../_components/Time'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
+import SettingsIcon from '@mui/icons-material/Settings'
 // import DeleteIcon from '@mui/icons-material/Delete'
 
 const columnHat = "w-full h-16 bg-neutral-200 rounded-tl-lg rounded-tr-lg flex justify-center items-center"
@@ -50,7 +51,7 @@ const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { ti
                 </Link> */}
                 <Link href={`/projects/${projectId}/tasks/${taskId}/edit`} className="flex justify-center hover:opacity-75">
                     <EditIcon sx={{ fontSize: 26 }}/>
-                </Link>               
+                </Link>
             </ul>
         </div>
     </Link>
@@ -136,12 +137,15 @@ export default function Page() {
 
     return (
         <main>
-            <div className="py-4">
+            <div className="py-4 flex">
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
-                <Link href={`/projects/${projectId}/edit`} className="hover:text-neutral-500">{project.title} <EditIcon sx={{ fontSize: 16 }}/></Link>
+                <Link href={`/projects/${projectId}`} className="hover:text-neutral-500">{project.title}</Link>
+                <div>
+                    <Link href={`/projects/${projectId}/settings`} className="absolute right-4 hover:text-neutral-500"><SettingsIcon sx={{ fontSize: 30 }} /></Link>
+                </div>
             </div>
-            
+   
             <div className="mr-5 grid grid-cols-4 gap-5">
                 <div className="h-full pb-4">
                     <div className={columnHat}>                      
