@@ -3,7 +3,7 @@
 import { getCardById, updateCard } from '@/api/Api'
 import { CardResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
@@ -11,6 +11,8 @@ import Link from 'next/link'
 
 export default function Page() {
     const { projectId, taskId } = useParams()
+    const router = useRouter()
+
     const [status, setStatus] = useState('loading')
     const [task, setTask] = useState({} as CardResponse)
 
@@ -34,6 +36,7 @@ export default function Page() {
     const [titleValues, setTitleValues] = useState("")
     const [summaryValues, setSummaryValues] = useState("")
     const [statusValues, setStatusValues] = useState("")
+    const [hasError, setError] = useState(false)
 
     enum Status {
         New = "NEW",
@@ -88,11 +91,15 @@ export default function Page() {
                                 required
                                 minLength={2}
                                 maxLength={30}
-                                className="w-full flex justify-center rounded-[7px] px-1"
-                                onChange={(event) =>
+                                className={`w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
+                                onChange={(event) => {
                                     setTitleValues(event.target.value)
-                                }
+                                    setError(false)
+                                }}
                             />
+                            {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}
                         </div>
                         <div className="px-16">
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
@@ -102,22 +109,33 @@ export default function Page() {
                                 placeholder={task.summary}
                                 required
                                 minLength={2}
-                                className="h-16 w-full items-start rounded-[7px] px-1 align-text-top text-ellipsis"
-                                onChange={(event) =>
+                                className={`h-16 w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
+                                onChange={(event) => {
                                     setSummaryValues(event.target.value)
-                                }
+                                    setError(false)
+                                }}
                             />
+                            {hasError ? (
+                                <div className='text-red-500'>Описание слишком короткое</div>
+                            ) : null}
                         </div> 
                         <div className="flex justify-center mt-4 px-36">
-                            <Link
+                            <button
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
-                                href="./../../"
-                                onClick={() => {
-                                    updateCard(Number(projectId), Number(taskId), values)
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    updateCard(Number(projectId), Number(taskId), values).then(({ error }) => {
+                                        if (error) {
+                                            setError(true)
+                                        } else {
+                                            setError(false)
+                                            router.push(`/projects/${projectId}`)
+                                        }
+                                    })
                                 }}
                             >
                                 <span className="flex items-center">Изменить</span>  
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </Grid>

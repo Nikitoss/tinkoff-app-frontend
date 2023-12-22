@@ -40,6 +40,7 @@ export interface CardResponse {
   createAt?: string;
   /** @format int64 */
   authorId?: number;
+  authorName?: string;
   /** @format int32 */
   upVote?: number;
   /** @format int32 */

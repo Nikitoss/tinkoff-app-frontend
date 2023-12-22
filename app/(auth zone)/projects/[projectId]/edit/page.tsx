@@ -7,11 +7,13 @@ import Link from 'next/link'
 import { getProjectById, updateProject } from '@/api/Api'
 import { ProjectResponse } from '@/api/dataСontracts'
 import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function Page() {
     const params = useParams()
     const projectId = params.projectId
+    const router = useRouter()
+
     const [status, setStatus] = useState('loading')
     const [project, setProject] = useState({} as ProjectResponse)
 
@@ -40,6 +42,8 @@ export default function Page() {
 
     if (status === 'error') return null
 
+    const [hasError, setError] = useState(false)
+
     return (
         <main>
             <Container fixed>
@@ -61,22 +65,29 @@ export default function Page() {
                                 required
                                 minLength={2}
                                 maxLength={30}
-                                className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
+                                className={`w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
                                 onChange={(event) => 
                                     setTitleValues(event.target.value)
                                 }                               
                             />
-                        </div>   
+                        </div>
                         <div className="flex justify-center mt-4 px-36">
-                            <Link
+                            <button
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
-                                href="./"
-                                onClick={() => {
-                                    updateProject(Number(project.id), values)
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    updateProject(Number(project.id), values).then(({ error }) => {
+                                        if (error) {
+                                            setError(true)
+                                        } else {
+                                            setError(false)
+                                            router.back()
+                                        }
+                                    })
                                 }}
                             >
                                 <span className="flex items-center">Изменить</span>
-                            </Link>
+                            </button>
                         </div>
                     </div>  
                 </Grid>

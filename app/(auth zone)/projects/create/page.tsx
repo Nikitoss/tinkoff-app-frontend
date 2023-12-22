@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Grid } from '@mui/material'
 import { createProject } from '@/api/Api'
 import { useState } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
     const [titleValues, setTitleValues] = useState("")
@@ -14,6 +14,10 @@ export default function Page() {
         title: titleValues
     }
     
+    const [hasError, setError] = useState(false)
+
+    const router = useRouter()
+
     return (
         <main>
             <Container fixed>
@@ -34,24 +38,35 @@ export default function Page() {
                                 minLength={2}
                                 maxLength={30}
                                 placeholder="Мой последний проект"
-                                className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
-                                onChange={(event) =>
-                                    setTitleValues(event.target.value)
-                                }
                                 required
+                                className={`w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
+                                onChange={(event) => {
+                                    setTitleValues(event.target.value)
+                                    setError(false)
+                                }}
                             />
-                        </div>   
+                            {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}
+                        </div>
                         <div className="flex justify-center mt-4 px-36">
-                            <Link
+                            <button
                                 type="submit"
-                                href="./"
                                 className="w-full h-12 px-10 mt-2 border flex justify-center items-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
-                                onClick={() => {
-                                    createProject(values)
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    createProject(values).then(({ error }) => {
+                                        if (error) {
+                                            setError(true)
+                                        } else {
+                                            setError(false)
+                                            router.push('/projects')
+                                        }
+                                    })
                                 }}
                             >
                                 Добавить
-                            </Link>
+                            </button>
                         </div>
                     </div>  
                 </Grid>

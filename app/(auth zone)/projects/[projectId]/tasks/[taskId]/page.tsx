@@ -56,7 +56,7 @@ export default function Page() {
                             <p>
                                 <AccountCircleIcon sx={{ fontSize: 50 }} />
                             </p>
-                            <span className="text-neutral-600">{task.authorId}</span>
+                            <span className="text-neutral-600">{task.authorName}</span>
                         </div>
                         <div className="flex justify-center items-end text-4xl">
                             <h1>{task.upVote}&nbsp;
