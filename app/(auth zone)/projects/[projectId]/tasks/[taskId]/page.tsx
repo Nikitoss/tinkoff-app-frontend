@@ -77,13 +77,13 @@ export default function Page() {
                         </div>
                         <div className="flex m-16 items-center space-x-3">
                             <p>
-                            <Image
-                                src="/Андрей.jpg"
-                                alt="Андрей"
-                                width={50}
-                                height={50}
-                                className="rounded-full"
-                            />
+                                <Image
+                                    src="/Андрей.jpg"
+                                    alt="Андрей"
+                                    width={50}
+                                    height={50}
+                                    className="rounded-full"
+                                />
                             </p>
                             <span className="text-neutral-600">{task.authorName}</span>
                         </div>
