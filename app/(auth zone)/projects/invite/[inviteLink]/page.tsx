@@ -7,14 +7,12 @@ import Image from 'next/image'
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import Date from '../../_components/Date'
-import Time from '../../_components/Time'
+import Date from '../../../_components/Date'
+import Time from '../../../_components/Time'
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import SettingsIcon from '@mui/icons-material/Settings'
-// import DeleteIcon from '@mui/icons-material/Delete'
 
 const columnHat = "w-full h-16 bg-neutral-200 rounded-tl-lg rounded-tr-lg flex justify-center items-center"
 const column = "static w-full h-screen bg-neutral-200 rounded-bl-lg rounded-br-lg space-y-2 overflow-y-auto overflow-x-hidden"
@@ -148,9 +146,6 @@ export default function Page() {
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
                 <Link href={`/projects/${projectId}`} className="hover:text-neutral-500">{project.title}</Link>
-                <div>
-                    <Link href={`/projects/${projectId}/settings`} className="absolute right-4 hover:text-neutral-500"><SettingsIcon sx={{ fontSize: 30 }} /></Link>
-                </div>
             </div>
    
             <div className="mr-5 grid grid-cols-4 gap-5">

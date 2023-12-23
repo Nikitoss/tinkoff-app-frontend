@@ -64,10 +64,43 @@ export interface RegisterRequest {
 
 export interface Token {
   token: string;
+  /** @format date-time */
+  expiration?: string;
 }
 
 export interface LoginRequest {
   login?: string;
   password?: string;
   token?: string
+}
+
+export interface SettingsRequest {
+  /** @format int64 */
+  voteCount?: number;
+  /** @format int64 */
+  period?: number;
+}
+
+export interface SettingsResponse {
+  /** @format int64 */
+  voteCount?: number;
+  /** @format int64 */
+  period?: number
+}
+
+export interface MemberResponse {
+  /** @format int64 */
+  userId?: number;
+  username?: string;
+  /** @format date-time */
+  accetionDate?: number
+}
+
+export interface MeResponse {
+  /** @format int64 */
+  id?: number;
+  username?: string;
+  role?: "ADMIN" | "MEMBER";
+  /** @format int64 */
+  voteCount: number
 }

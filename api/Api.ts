@@ -18,6 +18,10 @@ import {
     RegisterRequest,
     LoginRequest,
     Token,
+    SettingsResponse,
+    SettingsRequest,
+    MemberResponse,
+    MeResponse
 } from "./dataСontracts";
 
 const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
@@ -108,6 +112,92 @@ export const deleteProject = (projectId: number) =>
 /**
  * No description
  *
+ * @tags Projects
+ * @name GetAllProjects
+ * @summary Get all projects
+ * @request GET:/api/v1/projects/
+ */
+export const getAllProjects = () =>
+    request<ProjectResponse[]>({
+        path: `/api/v1/projects/`,
+        method: "GET"
+    });
+
+/**
+ * No description
+ *
+ * @tags Projects
+ * @name CreateProject
+ * @summary Create project
+ * @request POST:/api/v1/projects/
+ */
+export const createProject = (data: ProjectRequest) =>
+    request<ProjectResponse>({
+        path: `/api/v1/projects/`,
+        method: "POST",
+        body: data
+    });
+
+/**
+ * No description
+ *
+ * @tags Projects
+ * @name CreateInviteLink
+ * @summary Create invite link
+ * @request POST:/api/v1/projects/{projectId}/link
+ */
+export const createInviteLink = (projectId: number) =>
+    request<string>({
+        path: `/api/v1/projects/${projectId}/link`,
+        method: "POST",
+    });
+
+/**
+ * No description
+ *
+ * @tags Projects
+ * @name EnterFromInviteLink
+ * @summary Enter to project from invite link
+ * @request POST:/api/v1/projects/{inviteLink}
+ */
+export const enterFromInviteLink = (inviteLink: string) =>
+    request<boolean>({
+        path: `/api/v1/projects/${inviteLink}`,
+        method: "POST",
+    });
+
+/**
+ * No description
+ *
+ * @tags project-settings-controller
+ * @name GetProjectSettings
+ * @summary Get project settings
+ * @request POST:/api/v1/projects/{projectId}/settings
+ */
+export const getProjectSettings = (projectId: number) =>
+request<SettingsResponse>({
+    path: `/api/v1/projects/${projectId}/settings`,
+    method: "GET",
+})
+
+/**
+* No description
+*
+* @tags project-settings-controller
+* @name UpdateProjectSettings
+* @summary Update project settings
+* @request POST:/api/v1/projects/{projectId}/settings
+*/
+export const updateProjectSettings = (projectId: number, data: SettingsRequest) =>
+request<SettingsResponse>({
+    path: `/api/v1/projects/${projectId}/settings`,
+    method: "PUT",
+    body: data
+})
+
+/**
+ * No description
+ *
  * @tags Cards
  * @name GetCardById
  * @summary Get card by id
@@ -127,6 +217,7 @@ export const getCardById = (projectId: number, cardId: number) =>
  * @summary Update card
  * @request PUT:/api/v1/projects/{projectId}/cards/{cardId}
  */
+
 export const updateCard = (projectId: number, cardId: number, data: CardRequest) =>
     request<CardResponse>({
         path: `/api/v1/projects/${projectId}/cards/${cardId}`,
@@ -180,35 +271,6 @@ export const createCard = (projectId: number, data: CardRequest) =>
 /**
  * No description
  *
- * @tags Projects
- * @name GetAllProjects
- * @summary Get all projects
- * @request GET:/api/v1/projects/
- */
-export const getAllProjects = () =>
-    request<ProjectResponse[]>({
-        path: `/api/v1/projects/`,
-        method: "GET"
-    });
-
-/**
- * No description
- *
- * @tags Projects
- * @name CreateProject
- * @summary Create project
- * @request POST:/api/v1/projects/
- */
-export const createProject = (data: ProjectRequest) =>
-    request<ProjectResponse>({
-        path: `/api/v1/projects/`,
-        method: "POST",
-        body: data
-    });
-
-/**
- * No description
- *
  * @tags Cards
  * @name VoteForCards
  * @summary Vote for cards
@@ -254,4 +316,46 @@ export const loginUser = (data: LoginRequest) =>
             localStorage.setItem('token', x.data.token)
         }
         return x
+    });
+
+/**
+ * No description
+ *
+ * @tags project-member-controller
+ * @name GetMembers
+ * @summary Get members
+ * @request GET:/api/v1/projects/{projectId}/members
+ */
+export const getMembers = (projectId: number) =>
+    request<MemberResponse[]>({
+        path: `/api/v1/projects/${projectId}/members`,
+        method: "GET",
+    });
+    
+/**
+ * No description
+ *
+ * @tags project-member-controller
+ * @name DeleteMember
+ * @summary Delete member by id
+ * @request GET:/api/v1/projects/{projectId}/members/{memberId}
+ */
+export const deleteMember = (projectId: number, memberId: number) =>
+    request<boolean>({
+        path: `/api/v1/projects/${projectId}/members/${memberId}`,
+        method: "DELETE",
+    });
+
+/**
+ * No description
+ *
+ * @tags project-user-controller
+ * @name GetMe
+ * @summary Get me
+ * @request GET:/api/v1/projects/{projectId}/me
+ */
+export const getMe = (projectId: number) =>
+    request<MeResponse>({
+        path: `/api/v1/projects/${projectId}/me`,
+        method: "GET",
     });

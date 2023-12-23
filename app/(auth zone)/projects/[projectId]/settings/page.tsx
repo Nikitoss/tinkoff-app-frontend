@@ -1,17 +1,73 @@
 'use client'
 
 import Container from '@mui/material/Container'
-import { useState  } from 'react'
+import { useEffect, useState  } from 'react'
+import { useParams } from 'next/navigation'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
+import { getMembers, deleteMember } from '@/api/Api'
+import { MemberResponse } from '@/api/dataСontracts'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function Page() {
+    const params = useParams()
+    const projectId = Number(params.projectId)
+
+    const MemberCard = ({ username, userId, accetionDate }: { username: string, userId: number, accetionDate: number }) => (
+        <div className="inset-y-1 mt-1 w-full" key={userId}>
+            <div className="absolute top-2 text-lg">
+                {username}
+            </div>
+            <ul className="absolute flex top-2 right-2 space-x-1.5 ease-out duration-100">
+                <Link href="" className="flex justify-center hover:text-neutral-500" onClick={() => deleteMember(projectId, userId)}>
+                    <DeleteIcon sx={{ fontSize: 24 }}/>
+                </Link>
+            </ul>
+        </div>
+    )
+    
+    const SkeletonMember = ({ count = 1 }) => {
+        const ids = Array.from(Array(count).keys())
+    
+        return <>{ids.map((id) => <div className="bg-neutral-300 animate-pulse" key={id}></div>)}</>
+    }
+    
+    const Members = ({ projectId }: {projectId: number }) => {
+        const [members, setMembers] = useState([] as MemberResponse[])
+        const [status, setStatus] = useState('loading')
+    
+        useEffect(() => {
+            getMembers(projectId)
+                .then(({ data: members, error }) => {
+                    if (error) {
+                        console.error(error)
+                        setStatus('error')
+                        return
+                    }
+                    setMembers(members)
+                    setStatus('ready')
+                })
+                .catch((error) => {
+                    console.error(error)
+                    setStatus('error')
+                })
+        }, [projectId])
+    
+        if (status === 'error') return null
+    
+        if (status === 'loading') return <SkeletonMember />
+    
+        return (
+            <>
+                {members.map(({ userId, username, accetionDate }) => (
+                    <MemberCard userId={userId!} username={username!} accetionDate={accetionDate!} key={userId} />
+                ))}
+            </>
+        )
+    }
+    
     const [hasError, setError] = useState(false)
     const [titleValues, setTitleValues] = useState("")
-
-    const values = {
-        title: titleValues
-    }
 
     return (
         <main>
@@ -30,15 +86,19 @@ export default function Page() {
                             <input
                                 type="text"
                                 id="name"
-                                placeholder={titleValues}
+                                value={titleValues}
                                 required
                                 minLength={2}
                                 maxLength={30}
-                                className="w-full flex justify-center rounded-[7px] p-2 whitespace-normal"
-                                onChange={(event) => 
+                                className={`w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
+                                onChange={(event) => {
                                     setTitleValues(event.target.value)
-                                }                               
+                                    setError(false)
+                                }}                     
                             />
+                            {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}
                         </div>   
                         <div className="flex px-16 items-center space-x-4">
                             <label htmlFor="add">Добавить участника</label>
@@ -52,8 +112,11 @@ export default function Page() {
                                 required
                                 min={1}
                                 max={32}
-                                className="flex p-2 rounded-[7px]"                          
-                            />                          
+                                className="flex p-2 rounded-[7px]"                         
+                            />
+                            {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}                       
                         </div>
                         <div className="flex px-16 space-x-4">
                             <label htmlFor="add">Период обновления голосов (дни)</label>
@@ -64,12 +127,17 @@ export default function Page() {
                                 min={1}
                                 max={32}
                                 className="flex p-2 rounded-[7px]"                          
-                            />                          
+                            />
+                            {hasError ? (
+                                <div className='text-red-500'>Название слишком короткое</div>
+                            ) : null}      
                         </div>
                         <div className="flex px-16 space-x-4">
                             <div>
                                 <label htmlFor="add">Пользователи</label>
-                                
+                                <div className="bg-white h-16 w-full flex justify-center rounded-[7px] p-2">
+                                    <Members projectId={projectId} />
+                                </div>
                             </div>
                             <div>
                                 <label htmlFor="add">Администраторы</label>

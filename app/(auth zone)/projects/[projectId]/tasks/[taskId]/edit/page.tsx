@@ -7,7 +7,6 @@ import { useParams, useRouter } from 'next/navigation'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
-import Link from 'next/link'
 
 export default function Page() {
     const { projectId, taskId } = useParams()
@@ -33,22 +32,14 @@ export default function Page() {
             })
     }, [projectId, taskId])
 
-    const [titleValues, setTitleValues] = useState("")
-    const [summaryValues, setSummaryValues] = useState("")
-    const [statusValues, setStatusValues] = useState("")
+    const [titleValues, setTitleValues] = useState(task.title)
+    const [summaryValues, setSummaryValues] = useState(task.summary)
     const [hasError, setError] = useState(false)
-
-    enum Status {
-        New = "NEW",
-        InWork = "IN_WORK",
-        Accepted = "ACCEPTED",
-        Dismiss = "DISMISS"
-    }
 
     const values = {
         title: titleValues,
         summary: summaryValues,
-        status: statusValues as Status
+        status: task.status
     }
 
     if (status === 'error') return null
@@ -64,30 +55,13 @@ export default function Page() {
                     className="min-h-screen"
                 >
                     <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0 mb-12">
-                        <span className="font-bold text-2xl flex justify-center">Редактировать предложение</span>
-                        <div className="px-16 space-x-4 flex">
-                            <label htmlFor="name">Изменить статус</label>
-                            <select
-                                name="status"
-                                id="status"
-                                placeholder={task.status}
-                                className="font-bold flex items-center justify-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit"
-                                onChange={(event) =>
-                                    setStatusValues(event.target.value)
-                                }
-                            >
-                                <option value={Status.New}>NEW</option>
-                                <option value={Status.InWork}>IN WORK</option>
-                                <option value={Status.Accepted}>ACCEPTED</option>
-                                <option value={Status.Dismiss}>DISMISS</option>
-                            </select>
-                        </div>
+                        <span className="font-bold text-2xl flex justify-center">Редактировать предложение</span>                       
                         <div className="px-16">
                             <label htmlFor="title">Введите название задачи</label>
                             <input
                                 type="text"
                                 id="name"
-                                placeholder={task.title}
+                                value={titleValues}
                                 required
                                 minLength={2}
                                 maxLength={30}
@@ -105,8 +79,8 @@ export default function Page() {
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
                             <input
                                 type="text"
-                                id="name"
-                                placeholder={task.summary}
+                                id="summary"
+                                value={summaryValues}
                                 required
                                 minLength={2}
                                 className={`h-16 w-full flex justify-center rounded-[7px] p-2 ${hasError ? 'bg-red-100' : 'bg-white'}`}
