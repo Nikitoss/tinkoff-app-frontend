@@ -40,7 +40,7 @@ const request = async <Response>({ path, method, body, useToken = true }: { path
     };
 
     if (useToken) {
-        const token = localStorage.getItem('token')?.toString();
+        const token = localStorage?.getItem('token')?.toString();
         if (token !== undefined) {
             headers["Authorization"] = `Bearer ${token}`;
         }
@@ -176,10 +176,10 @@ export const enterFromInviteLink = (inviteLink: string) =>
  * @request POST:/api/v1/projects/{projectId}/settings
  */
 export const getProjectSettings = (projectId: number) =>
-request<SettingsResponse>({
-    path: `/api/v1/projects/${projectId}/settings`,
-    method: "GET",
-})
+    request<SettingsResponse>({
+        path: `/api/v1/projects/${projectId}/settings`,
+        method: "GET",
+    })
 
 /**
 * No description
@@ -190,11 +190,11 @@ request<SettingsResponse>({
 * @request POST:/api/v1/projects/{projectId}/settings
 */
 export const updateProjectSettings = (projectId: number, data: SettingsRequest) =>
-request<SettingsResponse>({
-    path: `/api/v1/projects/${projectId}/settings`,
-    method: "PUT",
-    body: data
-})
+    request<SettingsResponse>({
+        path: `/api/v1/projects/${projectId}/settings`,
+        method: "PUT",
+        body: data
+    })
 
 /**
  * No description
@@ -332,7 +332,7 @@ export const getMembers = (projectId: number) =>
         path: `/api/v1/projects/${projectId}/members`,
         method: "GET",
     });
-    
+
 /**
  * No description
  *

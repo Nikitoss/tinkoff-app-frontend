@@ -9,6 +9,7 @@ import * as React from 'react'
 import { Grid } from '@mui/material'
 import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 
+// eslint-disable-next-line no-unused-vars
 type SubmitHandler = (form: Omit<CardRequest, 'status'>) => Promise<void>
 
 type TaskFormProps = {
