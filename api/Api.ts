@@ -23,6 +23,7 @@ import {
     MemberResponse,
     MeResponse
 } from "./dataСontracts";
+import { redirect } from "next/navigation";
 
 const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 

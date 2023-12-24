@@ -7,6 +7,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
+import { redirect } from 'next/navigation'
 // import EditIcon from '@mui/icons-material/Edit'
 
 const card = "w-full aspect-video relative flex justify-center items-center text-center rounded-lg ease-out duration-300 hover:shadow"

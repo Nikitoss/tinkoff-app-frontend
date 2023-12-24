@@ -19,9 +19,9 @@ const NavBar = () => {
                 
                 
                 <ul className="relative top-4 space-y-2.5">
-                    {/* <Link className={`flex justify-center ${hoverAnimation}`} href="/profile">
+                    <Link className={`flex justify-center ${hoverAnimation}`} href="/profile">
                         <AccountCircleIcon sx={{ fontSize: 56 }} />
-                    </Link> */}
+                    </Link>
                     <a className={`flex justify-center ${hoverAnimation}`} onClick={router.back}>
                         <UndoIcon sx={{ fontSize: 48 }} />
                     </a>

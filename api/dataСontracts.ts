@@ -64,8 +64,6 @@ export interface RegisterRequest {
 
 export interface Token {
   token: string;
-  /** @format date-time */
-  expiration?: string;
 }
 
 export interface LoginRequest {
