@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import { redirect } from 'next/navigation'
+import AuthChecker from '../_components/AuthChecker'
 // import EditIcon from '@mui/icons-material/Edit'
 
 const card = "w-full aspect-video relative flex justify-center items-center text-center rounded-lg ease-out duration-300 hover:shadow"
@@ -37,7 +38,7 @@ const ProjectCard = ({ title, id }: { title: string, id: number }) => (
                     <EditIcon sx={{ fontSize: 26 }}/>
                 </Link>              
             </ul> */}
-        </div>       
+        </div>
     </Link>
 )
 
@@ -84,10 +85,12 @@ const Projects = () => {
 
 export default function Page() {
     return (
-        <div className="pt-3 mr-5 grid grid-cols-4 gap-5">
-            <AddProjectCard />
+        <AuthChecker>
+            <div className="pt-3 mr-5 grid grid-cols-4 gap-5">
+                <AddProjectCard />
 
-            <Projects />
-        </div>
+                <Projects />
+            </div>
+        </AuthChecker>
     )
 }

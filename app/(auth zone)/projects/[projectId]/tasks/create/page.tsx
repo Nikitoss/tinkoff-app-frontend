@@ -6,6 +6,8 @@ import { Grid } from '@mui/material'
 import { createCard } from '@/api/Api'
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
+import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
+
 
 export default function Page() {
     const params = useParams()
@@ -30,7 +32,7 @@ export default function Page() {
     }
 
     return (
-        <main>
+        <AuthChecker>
             <Container fixed>
                 <Grid
                     container
@@ -62,7 +64,7 @@ export default function Page() {
                         <div className="px-16">
                             <label htmlFor="summary">Опишите её (желательно, чтобы все её поняли)</label>
                             <input
-                                type="text" 
+                                type="text"
                                 id="summary"
                                 required
                                 minLength={2}
@@ -77,7 +79,7 @@ export default function Page() {
                                 <div className='text-red-500'>Описание слишком короткое</div>
                             ) : null}
                         </div>
-                        
+
                         <div className="flex justify-center mt-4 px-36">
                             <button
                                 type="submit"
@@ -100,6 +102,6 @@ export default function Page() {
                     </form>
                 </Grid>
             </Container>
-        </main>
+        </AuthChecker>
     )
 }

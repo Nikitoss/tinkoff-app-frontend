@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Date from '../../_components/Date'
 import Time from '../../_components/Time'
+import AuthChecker from '../../_components/AuthChecker'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import AddIcon from '@mui/icons-material/Add'
@@ -40,7 +41,7 @@ const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { ti
                 <div className="text-neutral-700">
                     <Date dateString={createAt} /><br />
                     <Time timeString={createAt} />
-                </div>               
+                </div>
                 <Image
                     src="/Андрей.jpg"
                     alt="Андрей"
@@ -57,7 +58,7 @@ const TaskCard = ({ title, upVote, downVote, projectId, taskId, createAt }: { ti
                     <DeleteIcon sx={{ fontSize: 24 }}/>
                 </Link> */}
                 <Link href={`/projects/${projectId}/tasks/${taskId}/edit`} className="flex justify-center hover:opacity-75">
-                    <EditIcon sx={{ fontSize: 26 }}/>
+                    <EditIcon sx={{ fontSize: 26 }} />
                 </Link>
             </ul>
         </div>
@@ -130,7 +131,7 @@ const Tasks = ({ projectId, taskStatus }: { projectId: number, taskStatus: strin
     }
 }
 
-export default function Page() { 
+export default function Page() {
     const params = useParams()
     const [project, setProjects] = useState([] as ProjectResponse)
     const projectId = Number(params.projectId)
@@ -143,7 +144,7 @@ export default function Page() {
     }, [projectId])
 
     return (
-        <main>
+        <AuthChecker>
             <div className="py-4 flex">
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
@@ -152,16 +153,16 @@ export default function Page() {
                     <Link href={`/projects/${projectId}/settings`} className="absolute right-4 hover:text-neutral-500"><SettingsIcon sx={{ fontSize: 30 }} /></Link>
                 </div>
             </div>
-   
+
             <div className="mr-5 grid grid-cols-4 gap-5">
                 <div className="h-full pb-4">
-                    <div className={columnHat}>                      
+                    <div className={columnHat}>
                         <h1 className="font-bold">NEW</h1>
                         <Link href={`${projectId}/tasks/create`}>
                             <div className="flex justify-center items-center">
                                 <AddIcon sx={{ fontSize: 30 }} />
                             </div>
-                        </Link>                   
+                        </Link>
                     </div>
                     <div className={column}>
                         <Tasks projectId={projectId} taskStatus={Status.New} />
@@ -195,6 +196,6 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </main>
+        </AuthChecker>
     )
 }

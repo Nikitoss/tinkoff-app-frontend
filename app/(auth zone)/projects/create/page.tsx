@@ -6,6 +6,7 @@ import { Grid } from '@mui/material'
 import { createProject } from '@/api/Api'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import AuthChecker from '../../_components/AuthChecker'
 
 export default function Page() {
     const [titleValues, setTitleValues] = useState("")
@@ -13,13 +14,13 @@ export default function Page() {
     const values = {
         title: titleValues
     }
-    
+
     const [hasError, setError] = useState(false)
 
     const router = useRouter()
 
     return (
-        <main>
+        <AuthChecker>
             <Container fixed>
                 <Grid
                     container
@@ -68,9 +69,9 @@ export default function Page() {
                                 Добавить
                             </button>
                         </div>
-                    </div>  
+                    </div>
                 </Grid>
             </Container>
-        </main>
+        </AuthChecker>
     )
 }

@@ -8,14 +8,13 @@ import { Grid } from '@mui/material'
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
-
     const [loginValues, setLoginValues] = useState("")
     const [passwordValues, setPasswordValues] = useState("")
     const [hasError, setError] = useState(false)
 
     const router = useRouter()
 
-    const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => { 
+    const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault()
 
         const firstValues = {

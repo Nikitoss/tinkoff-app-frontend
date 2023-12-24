@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
+import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 
 export default function Page() {
     const { projectId, taskId } = useParams()
@@ -45,7 +46,7 @@ export default function Page() {
     if (status === 'error') return null
 
     return (
-        <main>
+        <AuthChecker>
             <Container fixed>
                 <Grid
                     container
@@ -55,7 +56,7 @@ export default function Page() {
                     className="min-h-screen"
                 >
                     <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0 mb-12">
-                        <span className="font-bold text-2xl flex justify-center">Редактировать предложение</span>                       
+                        <span className="font-bold text-2xl flex justify-center">Редактировать предложение</span>
                         <div className="px-16">
                             <label htmlFor="title">Введите название задачи</label>
                             <input
@@ -92,7 +93,7 @@ export default function Page() {
                             {hasError ? (
                                 <div className='text-red-500'>Описание слишком короткое</div>
                             ) : null}
-                        </div> 
+                        </div>
                         <div className="flex justify-center mt-4 px-36">
                             <button
                                 className="w-full h-12 px-10 mt-2 border flex justify-center gap-2 rounded-lg bg-yellow-300 hover:bg-yellow-400 transition duration-300"
@@ -108,12 +109,12 @@ export default function Page() {
                                     })
                                 }}
                             >
-                                <span className="flex items-center">Изменить</span>  
+                                <span className="flex items-center">Изменить</span>
                             </button>
                         </div>
                     </div>
                 </Grid>
-            </Container>            
-        </main>
+            </Container>
+        </AuthChecker>
     )
 }

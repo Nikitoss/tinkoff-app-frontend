@@ -1,12 +1,13 @@
 'use client'
 
 import Container from '@mui/material/Container'
-import { useEffect, useState  } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { Grid } from '@mui/material'
 import Link from 'next/link'
 import { getMembers, deleteMember, createInviteLink } from '@/api/Api'
 import { MemberResponse } from '@/api/dataСontracts'
+import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function Page() {
@@ -24,22 +25,22 @@ export default function Page() {
             </div>
             <ul className="absolute top-2 right-2 space-x-1.5 ease-out duration-100">
                 <Link href="" className="flex justify-center hover:text-neutral-500" onClick={() => deleteMember(projectId, userId)}>
-                    <DeleteIcon sx={{ fontSize: 24 }}/>
+                    <DeleteIcon sx={{ fontSize: 24 }} />
                 </Link>
             </ul>
         </div>
     )
-    
+
     const SkeletonMember = ({ count = 1 }) => {
         const ids = Array.from(Array(count).keys())
-    
+
         return <>{ids.map((id) => <div className={skeletonCard} key={id}></div>)}</>
     }
-    
-    const Members = ({ projectId }: {projectId: number }) => {
+
+    const Members = ({ projectId }: { projectId: number }) => {
         const [members, setMembers] = useState([] as MemberResponse[])
         const [status, setStatus] = useState('loading')
-    
+
         useEffect(() => {
             getMembers(projectId)
                 .then(({ data: members, error }) => {
@@ -56,11 +57,11 @@ export default function Page() {
                     setStatus('error')
                 })
         }, [projectId])
-    
+
         if (status === 'error') return null
-    
+
         if (status === 'loading') return <SkeletonMember />
-    
+
         return (
             <>
                 {members.map(({ userId, username, accetionDate }) => (
@@ -69,7 +70,7 @@ export default function Page() {
             </>
         )
     }
-    
+
     const [hasError, setError] = useState(false)
     const [titleValues, setTitleValues] = useState("")
 
@@ -83,7 +84,7 @@ export default function Page() {
     }, [projectId])
 
     return (
-        <main>
+        <AuthChecker>
             <Container fixed>
                 <Grid
                     container
@@ -107,17 +108,17 @@ export default function Page() {
                                 onChange={(event) => {
                                     setTitleValues(event.target.value)
                                     setError(false)
-                                }}                     
+                                }}
                             />
                             {hasError ? (
                                 <div className='text-red-500'>Название слишком короткое</div>
                             ) : null}
-                        </div>   
+                        </div>
                         <div className="flex px-16 items-center space-x-4">
                             <label htmlFor="add">Добавить участника</label>
                             <button
                                 className="px-10 border flex justify-center items-center text-align-center gap-2 rounded-lg bg-white duration-300 ease-out hover:bg-neutral-300"
-                                onClick={() => navigator.clipboard.writeText(inviteLink)}
+                                onClick={() => navigator.clipboard.writeText(`https://tinkoff-app-frontend.vercel.app/share/${inviteLink}`)}
                             >
                                 Поделиться ссылкой
                             </button>
@@ -130,11 +131,11 @@ export default function Page() {
                                 required
                                 min={1}
                                 max={32}
-                                className="flex p-2 rounded-[7px]"                         
+                                className="flex p-2 rounded-[7px]"
                             />
                             {hasError ? (
                                 <div className='text-red-500'>Название слишком короткое</div>
-                            ) : null}                       
+                            ) : null}
                         </div>
                         <div className="flex px-16 space-x-4">
                             <label htmlFor="add">Период обновления голосов (дни)</label>
@@ -144,18 +145,18 @@ export default function Page() {
                                 required
                                 min={1}
                                 max={32}
-                                className="flex p-2 rounded-[7px]"                          
+                                className="flex p-2 rounded-[7px]"
                             />
                             {hasError ? (
                                 <div className='text-red-500'>Название слишком короткое</div>
-                            ) : null}      
+                            ) : null}
                         </div>
                         <div className="px-16 overflow-y-auto overflow-x-hidden">
                             <label htmlFor="add">Пользователи</label>
                             <div className="bg-white h-24 w-full flex justify-center rounded-[7px] p-2">
                                 <Members projectId={projectId} />
                             </div>
-                        </div>  
+                        </div>
 
                         <div className="flex justify-center mt-4 px-36">
                             <Link
@@ -169,6 +170,6 @@ export default function Page() {
                     </div>
                 </Grid>
             </Container>
-        </main>
+        </AuthChecker>
     )
 }

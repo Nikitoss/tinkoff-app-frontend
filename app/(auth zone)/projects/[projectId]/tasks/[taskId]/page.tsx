@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
+import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 
 export default function Page() {
     const { projectId, taskId } = useParams()
@@ -47,7 +48,7 @@ export default function Page() {
     if (status === 'error') return null
 
     return (
-        <main>
+        <AuthChecker>
             <Container fixed>
                 <Grid
                     container
@@ -119,10 +120,10 @@ export default function Page() {
                             <div className="flex">
                                 <span>{task.summary}</span>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                 </Grid>
-            </Container>             
-        </main>
+            </Container>
+        </AuthChecker>
     )
 }
