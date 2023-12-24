@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react"
 import { redirect } from 'next/navigation'
 
 const AuthChecker = (props: PropsWithChildren) => {
-    const token = localStorage.getItem('token')
+    const token = localStorage?.getItem('token')
     return token ? (
         <>
             {props.children}
