@@ -10,7 +10,6 @@ import Image from 'next/image'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
-import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 
 export default function Page() {
     const { projectId, taskId } = useParams()
@@ -48,82 +47,80 @@ export default function Page() {
     if (status === 'error') return null
 
     return (
-        <AuthChecker>
-            <Container fixed>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    className="min-h-screen"
-                >
-                    <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0">
-                        <div className="flex justify-center space-x-2 mb-4">
-                            <span className="font-bold text-2xl flex">{task.title}</span>
-                            <select
-                                name="status"
-                                id="status"
-                                value={statusValue}
-                                className="font-bold flex items-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit"
-                                onChange={(event) => {
-                                    setStatusValue(event.target.value)
-                                    updateCard(Number(projectId), Number(taskId), { status: statusValue as Status })
-                                }}
+        <Container fixed>
+            <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                className="min-h-screen"
+            >
+                <div className="w-3/5 py-4 rounded-lg bg-neutral-200 space-y-2 inset-x-0">
+                    <div className="flex justify-center space-x-2 mb-4">
+                        <span className="font-bold text-2xl flex">{task.title}</span>
+                        <select
+                            name="status"
+                            id="status"
+                            value={statusValue}
+                            className="font-bold flex items-center text-center px-2 rounded-md bg-orange-300 text-sm w-fit"
+                            onChange={(event) => {
+                                setStatusValue(event.target.value)
+                                updateCard(Number(projectId), Number(taskId), { status: statusValue as Status })
+                            }}
+                        >
+                            <option value={Status.New}>NEW</option>
+                            <option value={Status.InWork}>IN WORK</option>
+                            <option value={Status.Accepted}>ACCEPTED</option>
+                            <option value={Status.Dismiss}>DISMISS</option>
+                        </select>
+                    </div>
+                    <div className="flex m-16 items-center space-x-3">
+                        <p>
+                            <Image
+                                src="/Андрей.jpg"
+                                alt="Андрей"
+                                width={50}
+                                height={50}
+                                className="rounded-full"
+                            />
+                        </p>
+                        <span className="text-neutral-600">{task.authorName}</span>
+                    </div>
+                    <div className="flex justify-center items-end text-4xl">
+                        <h1>{task.upVote}&nbsp;
+                            <button
+                                className="hover:opacity-75"
+                                onClick={() =>
+                                    voteForCards(Number(projectId), Number(taskId), { voteType: Vote.For })
+                                        .then(() => {
+                                            setUpVote(upVote => upVote + 1)
+                                        })
+                                }
                             >
-                                <option value={Status.New}>NEW</option>
-                                <option value={Status.InWork}>IN WORK</option>
-                                <option value={Status.Accepted}>ACCEPTED</option>
-                                <option value={Status.Dismiss}>DISMISS</option>
-                            </select>
-                        </div>
-                        <div className="flex m-16 items-center space-x-3">
-                            <p>
-                                <Image
-                                    src="/Андрей.jpg"
-                                    alt="Андрей"
-                                    width={50}
-                                    height={50}
-                                    className="rounded-full"
-                                />
-                            </p>
-                            <span className="text-neutral-600">{task.authorName}</span>
-                        </div>
-                        <div className="flex justify-center items-end text-4xl">
-                            <h1>{task.upVote}&nbsp;
-                                <button
-                                    className="hover:opacity-75"
-                                    onClick={() =>
-                                        voteForCards(Number(projectId), Number(taskId), { voteType: Vote.For })
-                                            .then(() => {
-                                                setUpVote(upVote => upVote + 1)
-                                            })
-                                    }
-                                >
-                                    🔥
-                                </button>
-                                &nbsp;| {task.downVote}&nbsp;
-                                <button
-                                    className="hover:opacity-75"
-                                    onClick={() =>
-                                        voteForCards(Number(projectId), Number(taskId), { voteType: Vote.Against })
-                                            .then(() => {
-                                                setDownVote(downVote => downVote + 1)
-                                            })
-                                    }
-                                >
-                                    💩
-                                </button>
-                            </h1>
-                        </div>
-                        <div className="px-8 ">
-                            <span className="text-neutral-600">Описание</span>
-                            <div className="flex">
-                                <span>{task.summary}</span>
-                            </div>
+                                🔥
+                            </button>
+                            &nbsp;| {task.downVote}&nbsp;
+                            <button
+                                className="hover:opacity-75"
+                                onClick={() =>
+                                    voteForCards(Number(projectId), Number(taskId), { voteType: Vote.Against })
+                                        .then(() => {
+                                            setDownVote(downVote => downVote + 1)
+                                        })
+                                }
+                            >
+                                💩
+                            </button>
+                        </h1>
+                    </div>
+                    <div className="px-8 ">
+                        <span className="text-neutral-600">Описание</span>
+                        <div className="flex">
+                            <span>{task.summary}</span>
                         </div>
                     </div>
-                </Grid>
-            </Container>
-        </AuthChecker>
+                </div>
+            </Grid>
+        </Container>
     )
 }

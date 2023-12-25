@@ -7,7 +7,6 @@ import { useParams, useRouter } from 'next/navigation'
 import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Grid } from '@mui/material'
-import AuthChecker from '@/app/(auth zone)/_components/AuthChecker'
 
 // eslint-disable-next-line no-unused-vars
 type SubmitHandler = (form: Omit<CardRequest, 'status'>) => Promise<void>
@@ -157,22 +156,20 @@ export default function Page() {
     if (status === 'loading') return <TaskFormLoader />
 
     return (
-        <AuthChecker>
-            <Container fixed>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    className="min-h-screen"
-                >
-                    <TaskForm
-                        initialTitle={task.title || ""}
-                        initialSummary={task.summary || ""}
-                        onSubmit={onSubmit}
-                    />
-                </Grid>
-            </Container>            
-        </AuthChecker>
+        <Container fixed>
+            <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                className="min-h-screen"
+            >
+                <TaskForm
+                    initialTitle={task.title || ""}
+                    initialSummary={task.summary || ""}
+                    onSubmit={onSubmit}
+                />
+            </Grid>
+        </Container>
     )
 }

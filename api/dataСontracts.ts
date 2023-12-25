@@ -77,6 +77,7 @@ export interface SettingsRequest {
   voteCount?: number;
   /** @format int64 */
   period?: number;
+  projectTitle?: string
 }
 
 export interface SettingsResponse {

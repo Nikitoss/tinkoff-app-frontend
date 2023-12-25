@@ -1,7 +1,7 @@
 'use client'
 
-import { getAllCards, getProjectById } from '@/api/Api'
-import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
+import { getAllCards, getProjectById, getMe } from '@/api/Api'
+import { CardResponse, ProjectResponse, MeResponse } from '@/api/dataСontracts'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Date from '../../_components/Date'
 import Time from '../../_components/Time'
-import AuthChecker from '../../_components/AuthChecker'
+import RoleChecker from '../../_components/RoleChecker'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import AddIcon from '@mui/icons-material/Add'
@@ -144,14 +144,16 @@ export default function Page() {
     }, [projectId])
 
     return (
-        <AuthChecker>
+        <main>
             <div className="py-4 flex">
                 <Link href="/projects" className="hover:text-neutral-500">Проекты</Link>
                 &nbsp;/&nbsp;
                 <Link href={`/projects/${projectId}`} className="hover:text-neutral-500">{project.title}</Link>
-                <div>
-                    <Link href={`/projects/${projectId}/settings`} className="absolute right-4 hover:text-neutral-500"><SettingsIcon sx={{ fontSize: 30 }} /></Link>
-                </div>
+                <RoleChecker>
+                    <div>
+                        <Link href={`/projects/${projectId}/settings`} className="absolute right-4 hover:text-neutral-500"><SettingsIcon sx={{ fontSize: 30 }} /></Link>
+                    </div>
+                </RoleChecker>
             </div>
 
             <div className="mr-5 grid grid-cols-4 gap-5">
@@ -196,6 +198,6 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </AuthChecker>
+        </main>
     )
 }
