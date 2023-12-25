@@ -1,35 +1,23 @@
 'use client'
 
-import { enterFromInviteLink, getAllCards, getProjectById } from '@/api/Api'
-import { CardResponse, ProjectResponse } from '@/api/dataСontracts'
-import { usePathname, redirect } from 'next/navigation'
+import { enterFromInviteLink } from '@/api/Api'
+import { ProjectResponse } from '@/api/dataСontracts'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function Page() {
-    // // const pathname = usePathname()
-    // // const [projectId, setProjectId] = useState()
+    const router = useRouter()
+    const params = useParams<{ inviteLink: string }>()
+    const inviteLink = params.inviteLink
 
-    // // useEffect(() => {
-    // //     enterFromInviteLink(pathname)
-    // //         .then(({ data: project, error }) => {
-    // //             if (error) {
-    // //                 console.error(error)
-    // //                 return
-    // //             }
-    // //             setProjectId(project.id)
-    // //         })
-    // //         .catch((error) => {
-    // //             console.error(error)
-    // //         })
-    // // }, [])
+    const [project, setProject] = useState([] as ProjectResponse)
 
-    // const [project, setProjects] = useState([] as ProjectResponse)
+    useEffect(() => {
+        enterFromInviteLink(inviteLink)
+            .then(({ data: project }) => {
+                setProject(project)
+            })
+    }, [inviteLink])
 
-    // useEffect(() => {
-    //     getProjectById(Number(projectId))
-    //         .then(({ data: project }) => {
-    //             setProjects(project)
-    //         })
-    // }, [projectId])
-    return null
+    router.push(`/projects/${project.id}`)
 }

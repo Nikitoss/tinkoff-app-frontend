@@ -29,7 +29,7 @@ const baseUrl: string = process.env.SERVER_URL || "https://213.171.9.177";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
-const request = async <Response>({ path, method, body, useToken = true }: { path: string; method?: Method; body?: unknown; useToken?: boolean }) => {
+const request = async <Response>({ path, method, body, useToken = true, json = true }: { path: string; method?: Method; body?: unknown; useToken?: boolean; json?: boolean }) => {
     const result = {
         data: null as unknown as Response,
         error: null as unknown
@@ -40,7 +40,7 @@ const request = async <Response>({ path, method, body, useToken = true }: { path
     };
 
     if (useToken) {
-        const token = localStorage.getItem('token')?.toString();
+        const token = localStorage?.getItem('token')?.toString();
         if (token !== undefined) {
             headers["Authorization"] = `Bearer ${token}`;
         }
@@ -53,7 +53,7 @@ const request = async <Response>({ path, method, body, useToken = true }: { path
             // credentials: "include", // Можно использовать, если клиент и сервер будут на одном домене
             headers
         });
-        const data = await response.json();
+        const data = json ? await response.json() : await response.text();
         if (response.ok) {
             result.data = data;
         } else {
@@ -107,7 +107,8 @@ export const updateProject = (projectId: number, data: ProjectRequest) =>
 export const deleteProject = (projectId: number) =>
     request<boolean>({
         path: `/api/v1/projects/${projectId}`,
-        method: "DELETE"
+        method: "DELETE",
+        json: false
     });
 
 /**
@@ -151,6 +152,7 @@ export const createInviteLink = (projectId: number) =>
     request<string>({
         path: `/api/v1/projects/${projectId}/link`,
         method: "POST",
+        json: false
     });
 
 /**
@@ -176,10 +178,10 @@ export const enterFromInviteLink = (inviteLink: string) =>
  * @request POST:/api/v1/projects/{projectId}/settings
  */
 export const getProjectSettings = (projectId: number) =>
-request<SettingsResponse>({
-    path: `/api/v1/projects/${projectId}/settings`,
-    method: "GET",
-})
+    request<SettingsResponse>({
+        path: `/api/v1/projects/${projectId}/settings`,
+        method: "GET",
+    })
 
 /**
 * No description
@@ -190,11 +192,11 @@ request<SettingsResponse>({
 * @request POST:/api/v1/projects/{projectId}/settings
 */
 export const updateProjectSettings = (projectId: number, data: SettingsRequest) =>
-request<SettingsResponse>({
-    path: `/api/v1/projects/${projectId}/settings`,
-    method: "PUT",
-    body: data
-})
+    request<SettingsResponse>({
+        path: `/api/v1/projects/${projectId}/settings`,
+        method: "PUT",
+        body: data
+    })
 
 /**
  * No description
@@ -237,8 +239,9 @@ export const updateCard = (projectId: number, cardId: number, data: CardRequest)
 export const deleteCard = (projectId: number, cardId: number) =>
     request<boolean>({
         path: `/api/v1/projects/${projectId}/cards/${cardId}`,
-        method: "DELETE"
-    });
+        method: "DELETE",
+        json: false
+    }).then((resp) => ({ ...resp, data: !!resp.data }));
 
 /**
  * No description
@@ -281,7 +284,8 @@ export const voteForCards = (projectId: number, cardId: number, data: VoteReques
     request<boolean>({
         path: `/api/v1/projects/${projectId}/cards/${cardId}/vote?voteType=${data.voteType}`,
         method: "POST",
-    });
+        json: false
+    }).then((resp) => ({ ...resp, data: !!resp.data }));
 
 /**
  * No description
@@ -295,7 +299,8 @@ export const registerUser = (data: RegisterRequest) =>
     request<200>({
         path: `/api/v1/auth/register/`,
         method: "POST",
-        body: data
+        body: data,
+        json: false
     });
 
 /**
@@ -332,7 +337,7 @@ export const getMembers = (projectId: number) =>
         path: `/api/v1/projects/${projectId}/members`,
         method: "GET",
     });
-    
+
 /**
  * No description
  *
@@ -345,7 +350,8 @@ export const deleteMember = (projectId: number, memberId: number) =>
     request<boolean>({
         path: `/api/v1/projects/${projectId}/members/${memberId}`,
         method: "DELETE",
-    });
+        json: false
+    }).then((resp) => ({ ...resp, data: !!resp.data }));
 
 /**
  * No description
